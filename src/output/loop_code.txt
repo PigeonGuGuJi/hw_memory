@@ -1,0 +1,38 @@
+/home/guguji/big/main.c:159l74
+/home/guguji/big/main.c:159l62
+/home/guguji/big/main.c:160l74
+/home/guguji/big/main.c:160l62
+/home/guguji/big/main.c:176l61
+/home/guguji/big/main.c:176l50
+/home/guguji/big/main.c:177l61
+/home/guguji/big/main.c:177l50
+/home/guguji/big/main.c:218 (discriminator 3)l2
+/home/guguji/big/main.c:218 (discriminator 3)l1
+/home/guguji/big/main.c:218 (discriminator 3)l0
+/home/guguji/big/main.c:215 (discriminator 3)l2
+/home/guguji/big/main.c:215 (discriminator 3)l1
+/home/guguji/big/main.c:215 (discriminator 3)l0
+/home/guguji/big/main.c:235 (discriminator 3)l6
+/home/guguji/big/main.c:235 (discriminator 3)l19
+/home/guguji/big/main.c:235 (discriminator 3)l38
+/home/guguji/big/main.c:235 (discriminator 3)l3
+/home/guguji/big/main.c:235 (discriminator 3)l13
+/home/guguji/big/main.c:235 (discriminator 3)l29
+/home/guguji/big/main.c:236 (discriminator 3)l6
+/home/guguji/big/main.c:236 (discriminator 3)l19
+/home/guguji/big/main.c:236 (discriminator 3)l38
+/home/guguji/big/main.c:236 (discriminator 3)l3
+/home/guguji/big/main.c:236 (discriminator 3)l13
+/home/guguji/big/main.c:236 (discriminator 3)l29
+/home/guguji/big/main.c:232 (discriminator 3)l6
+/home/guguji/big/main.c:232 (discriminator 3)l19
+/home/guguji/big/main.c:232 (discriminator 3)l38
+/home/guguji/big/main.c:232 (discriminator 3)l3
+/home/guguji/big/main.c:232 (discriminator 3)l13
+/home/guguji/big/main.c:232 (discriminator 3)l29
+/home/guguji/big/main.c:248 (discriminator 3)l12
+/home/guguji/big/main.c:248 (discriminator 3)l11
+/home/guguji/big/main.c:248 (discriminator 3)l28
+/home/guguji/big/main.c:248 (discriminator 3)l27
+/home/guguji/big/main.c:248 (discriminator 3)l7
+/home/guguji/big/main.c:248 (discriminator 3)l20

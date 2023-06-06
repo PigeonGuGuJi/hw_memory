@@ -17,7 +17,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import QAction, QApplication, QComboBox, QDesktopWidget, QFileDialog, QHBoxLayout, QLabel, QLineEdit, QMainWindow, QMdiArea, QMdiSubWindow, \
     QMessageBox, QSizePolicy, QStyleFactory, QTableWidget, QTableWidgetItem, QTextEdit, QVBoxLayout, QWidget
 
-from gui_backend import WorkerThread
+from src.gui_backend import WorkerThread
 
 
 class CCodeHighlighter(QSyntaxHighlighter):
