@@ -32,16 +32,16 @@ digraph "Procedure Graph" {
 	call_weak_fn -> "__gmon_start__@plt"
 	__do_global_dtors_aux -> deregister_tm_clones
 	frame_dummy -> register_tm_clones
-	main -> ComplexDataHandle
-	main -> SwapMesh
-	main -> CompareMesh
-	main -> InitializeMesh_1
-	main -> "putchar@plt"
-	main -> Mesh_dot
 	main -> Mesh2
 	main -> InitializeMesh_2
+	main -> Mesh_dot
+	main -> SwapMesh
+	main -> CompareMesh
+	main -> ComplexDataHandle
+	main -> InitializeMesh_1
+	main -> "putchar@plt"
 	InitializeMesh_1 -> "random@plt"
 	InitializeMesh_2 -> "random@plt"
-	ComplexDataHandle -> ManiplateData1
 	ComplexDataHandle -> ManiplateData2
+	ComplexDataHandle -> ManiplateData1
 }
