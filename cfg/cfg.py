@@ -263,6 +263,9 @@ class TCfgNode:
         return self.__instructions
 
     def set_rw_data(self):
+        
+        # 用来算有多少个入边和出边，still_xx用于下面遍历计算
+        # TODO 感觉可以用sizeof类似的优化
         for e in self.outgoing_edge:
             if e.is_backEdge:
                 pass
@@ -276,6 +279,7 @@ class TCfgNode:
                 self.still_in_num += 1
                 self.in_num += 1
 
+        # 用来设置头部参数，用于往后启动
         if self.in_num == 0:
             self.is_head = True
             self.no_in = True

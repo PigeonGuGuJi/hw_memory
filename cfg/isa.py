@@ -1,27 +1,28 @@
-# -*- coding: utf-8 -*-
-"""
-@Time       : 2023/3/23 19:22
-@Author     : Juxin Niu (juxin.niu@outlook.com)
-@FileName   : isa.py
-@Description: 
-"""
+# isa对象化
+# 用于对于指令的类别进行识别和分类
+
 import re
 from enum import Enum, auto
 from typing import Sequence
 
+# 此处是和ldr分析流程中相关的指令的正则表达式
+# 未来可以进一步扩展为对于指令的初步分类
 class Re_LoadStore_Ins:
     
-    #去除地址中的0
-    addr_nozero_pat = r"(0*)([1-9a-fA-F][0-9a-fA-F]*)"
-    # 区分指令类型
-    loadstore_pat = r"ldr|ldp|lda|ldu|str|stp|stl|stu" 
-    lsp_pat = r"ldp|stp"
-
+    # loadstore指令
+    loadstore_pat = r"ldr|ldp|lda|ldu|str|stp|stl|stu" #所有的loadstore
+    lsp_pat = r"ldp|stp"#ldp指令，比较难处理
+    # 加减指令
     add_pat = r"add|sub"
+    # 去除地址中的0
+    addr_nozero_pat = r"(0*)([1-9a-fA-F][0-9a-fA-F]*)"
+    
+
+    
 
 class Re_LoadStore_Operand:
-    #按照类型规整过的字符串
-    reg_str = r"((?:(?:x|w|s|v|r|s|d|q)\d{1,2})|wzr|xzr|sp)"
+    #整理过的字符串，用来拼接正则匹配表达式
+    reg = r"((?:(?:x|w|s|v|r|s|d|q|h|b)\d{1,2})|wzr|xzr|sp)"
     spacedot = r"\s*\,\s*"
     space = r"\s*"
     anyword = r"(.*)"
@@ -31,7 +32,7 @@ class Re_LoadStore_Operand:
     operand_adrp_access_pat = r"([0-9a-fA-F]*)\s*(<.*>)"
     
     #特殊情况
-    ls_split_pat = space+reg_str+spacedot+anyword
+    ls_split_pat = space+reg+spacedot+anyword
     ls_bracket_pat = r"\[.*\]"
     ls_bracketUpdate_pat = r"\[.*\]!"
     ls_bracketUpdateAft_pat = r"\[.*\]"+spacedot+anyword
@@ -39,19 +40,20 @@ class Re_LoadStore_Operand:
     ls_sp_pat = r"(sp)"
     ls_immOffset_pat = r"\#"+immoffset_str
     ls_shift_pat = r"(lsl|lsr|adr|ror)"
+    
     #偏移寻址
-    ls_base_pat = r"^\["+reg_str+r"\]$"
-    ls_immeOffset_pat = r"\["+reg_str+spacedot+r"\#(-?)"+immoffset_str+r"\]"
-    ls_regOffset_pat = r"\["+reg_str+spacedot+r"(-?)"+reg_str+r"\]"
-    ls_regShift_pat = r"\["+reg_str+spacedot+r"(-?)"+reg_str+spacedot+ls_shift_pat+r"\s*\#(-?)"+immoffset_str+r"\]"
+    ls_base_pat = r"^\["+reg+r"\]$"
+    ls_immeOffset_pat = r"\["+reg+spacedot+r"\#(-?)"+immoffset_str+r"\]"
+    ls_regOffset_pat = r"\["+reg+spacedot+r"(-?)"+reg+r"\]"
+    ls_regShift_pat = r"\["+reg+spacedot+r"(-?)"+reg+spacedot+ls_shift_pat+r"\s*\#(-?)"+immoffset_str+r"\]"
     #先更新寻址
-    ls_immeBef_pat = r"\["+reg_str+spacedot+r"\#(-?)"+immoffset_str+r"\]!"
-    ls_regBef_pat = r"\["+reg_str+spacedot+r"(-?)"+reg_str+r"\]!"
-    ls_regShiftBef_pat = r"\["+reg_str+spacedot+r"(-?)"+reg_str+spacedot+ls_shift_pat+r"\s*\#(-?)"+immoffset_str+r"\]!"
+    ls_immeBef_pat = r"\["+reg+spacedot+r"\#(-?)"+immoffset_str+r"\]!"
+    ls_regBef_pat = r"\["+reg+spacedot+r"(-?)"+reg+r"\]!"
+    ls_regShiftBef_pat = r"\["+reg+spacedot+r"(-?)"+reg+spacedot+ls_shift_pat+r"\s*\#(-?)"+immoffset_str+r"\]!"
     #后更新寻址  
-    ls_immeAft_pat = r"\["+reg_str+r"\]"+spacedot+r"\#(-?)"+immoffset_str
-    ls_regAft_pat = r"\["+reg_str+r"\]"+spacedot+r"(-?)"+reg_str
-    ls_regShiftAft_pat = r"\["+reg_str+r"\]"+spacedot+r"(-?)"+reg_str+spacedot+ls_shift_pat+r"\s*\#(-?)"+immoffset_str
+    ls_immeAft_pat = r"\["+reg+r"\]"+spacedot+r"\#(-?)"+immoffset_str
+    ls_regAft_pat = r"\["+reg+r"\]"+spacedot+r"(-?)"+reg
+    ls_regShiftAft_pat = r"\["+reg+r"\]"+spacedot+r"(-?)"+reg+spacedot+ls_shift_pat+r"\s*\#(-?)"+immoffset_str
 
 
 class Address:

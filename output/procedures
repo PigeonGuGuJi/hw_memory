@@ -42,6 +42,6 @@ digraph "Procedure Graph" {
 	main -> InitializeMesh_1
 	InitializeMesh_1 -> "random@plt"
 	InitializeMesh_2 -> "random@plt"
-	ComplexDataHandle -> ManiplateData1
 	ComplexDataHandle -> ManiplateData2
+	ComplexDataHandle -> ManiplateData1
 }

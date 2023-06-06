@@ -1,3 +1,4 @@
+# 读写分析的第一步，处理loadstore部分
 from queue import Queue
 import re
 
@@ -10,6 +11,7 @@ class LSUnit:
         self.__node = node
         self.__addr = self.__ins.addr.val()
         
+        #需要寻找的寄存器的数量
         self.target_num = self.__ins.ls_target_num
         if self.target_num == 1:
             self.__reg_target = self.__ins.ls_reg_target
