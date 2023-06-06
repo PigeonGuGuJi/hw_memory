@@ -192,8 +192,8 @@ class RWOut_Proc:
                     self.loopinfo[k][addr] ="非容错"
 
 
-        for k,v in self.loopinfo.items():
-            print(k,v)
+        #for k,v in self.loopinfo.items():
+        #    print(k,v)
 
         
 
