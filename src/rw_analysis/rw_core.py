@@ -3,7 +3,7 @@
 import random
 from rw_analysis.loadstore import LSProc
 from rw_analysis.rw_condition import RWProc, RWType
-from rw_analysis.rw_condition_out import RWOut_Proc
+from rw_analysis.rw_output import RWOut_Proc
 
 
 class loadstore_Obj:
@@ -54,8 +54,8 @@ class loadstore_Obj:
         self.lds_table = self.lsproc.ls_table
 
         for i in self.lds_table:
-            i.final_addr
-            i.local_offset
+            i.final_addr()
+            i.local_offset()
 
         #for i in lds_table:
         #    if i.target_num == 1:

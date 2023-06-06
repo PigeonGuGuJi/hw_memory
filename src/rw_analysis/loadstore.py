@@ -5,8 +5,6 @@ import re
 class LSUnit:
 
     def __init__(self,ins,node):
-
-        
         self.__ins = ins
         self.__node = node
         self.__addr = self.__ins.addr.val()
@@ -67,9 +65,6 @@ class LSUnit:
     def set_reg_target(self,addr):
         self.__reg_target = addr
 
-    
-    
-
     @property
     def addr_offset(self):
         return self.__addr_offset
@@ -77,7 +72,6 @@ class LSUnit:
     def add_addr_offset(self,num):
         self.__addr_offset += num
 
-    @property
     def final_addr(self):
         #给全局用的
         if self.target_num == 1:
@@ -115,11 +109,6 @@ class LSUnit:
             self.__ins.set_final_addr(self.__final_addr)
             return self.__final_addr
 
-
-                    
-
-    
-    @property
     def local_offset(self):
         #给sp用的局部偏移
         if self.__is_find:
@@ -128,6 +117,10 @@ class LSUnit:
                 
         self.__ins.set_local_offset(self.__local_offset)
         return self.__local_offset
+
+
+
+
 
 class LSProc:
 
