@@ -13,8 +13,8 @@ from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
 from graphviz import Digraph
 from graphviz.dot import Dot
 
-from cfg.isa import Address, Instruction
-from cfg.read_asm import StatementType
+from institpr.isa import Address, Instruction
+from synpar.read_asm import StatementType
 import random
 
 

@@ -69,7 +69,7 @@ class loadstore_Obj:
             print(i.ins.tokens,i.final_addr,"偏移",i.backtrace_offset,"基地址",i.base,"是否找到",i.is_find,"是否是immsp",i.is_imm_sp,"是否是sp",i.is_sp,i.node.name) 
     
     def __rw_proc(self):
-        self.rwproc = RWProc(self.lds_table)
+        self.rwproc = RWProc(self.lsproc)
 
         Global_Tolerant_value = 0
         Global_Intolerant_value = 0

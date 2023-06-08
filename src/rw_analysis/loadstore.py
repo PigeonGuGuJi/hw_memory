@@ -1,6 +1,6 @@
 # 读写分析的第一步，处理loadstore部分
 from queue import Queue
-from cfg.isa import ls_target
+from institpr.isa import ls_target
 import re
 
 #对于涉及到loadstore的处理流程对象化对象化
@@ -185,6 +185,18 @@ class LSProc:
                             break
                     if find_queue.empty():
                         break
+        
+        self.__ls_dir = dict()
+        for node in self.__tcfg_nodes:
+            self.__ls_dir[node.name] = list()
+        
+        for lsunit in self.__ls_table:
+            self.__ls_dir[lsunit.node.name].append(lsunit)
+
+        for k in self.__ls_dir:
+            print(k)
+            for v in self.__ls_dir[k]:
+                print(v.ins.tokens)
                             
 
     def __target_list_proc(self,lsunit,ins):
@@ -271,4 +283,8 @@ class LSProc:
     @property
     def ls_table(self):
         return self.__ls_table
+    
+    @property
+    def ls_dir(self):
+        return self.__ls_dir
     

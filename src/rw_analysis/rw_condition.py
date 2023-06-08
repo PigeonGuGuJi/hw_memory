@@ -20,9 +20,9 @@ class RWUnit:
     __load_cpat = re.compile(Re_LoadStore_Ins.load_pat)
     __store_cpat = re.compile(Re_LoadStore_Ins.store_pat)
 
-    def __init__(self,instr,node):
-        self.__ins = instr
-        self.__node = node
+    def __init__(self,lsunit):
+        self.__ins = lsunit.ins
+        self.__node = lsunit.node
         self.__find_cycle = 0
         self.find_trace = list()
         self.__is_find = False
@@ -68,29 +68,31 @@ class RWUnit:
 
 
 class RWProc:
-    def __init__(self,ls_table):
+    def __init__(self,ls_proc):
 
-        self.__ls_table = ls_table
+        self.__ls_table = ls_proc.ls_table
+        self.__ls_dir = ls_proc.ls_dir
+
+
         self.__rw_table = list()
-
+        
         for lsunit in self.__ls_table:
 
-            rw_unit = RWUnit(lsunit.ins,lsunit.node)
+            rw_unit = RWUnit(lsunit)
             self.__rw_table.append(rw_unit)
 
-            if rw_unit.ins.addr.hex_str() == "400fb0":
-                tempUse = rw_unit
-
-            find_queue= Queue(0)
+            """ find_queue= Queue(0)
             find_queue.put(rw_unit.node)
             temp_node = find_queue.get()
             
-            if lsunit.is_sp:
+            # 局部变量跳出
+            if lsunit.is_imm_sp:
                 continue
 
+            #和ls一样的回朔操作
             find_ins_self = False
-
-            for ins in reversed(temp_node.instructions):
+ """
+            """ for ins in reversed(temp_node.instructions):
                 if ins.addr.val() == rw_unit.ins.addr.val():
                     find_ins_self = True
                     continue
@@ -159,4 +161,4 @@ class RWProc:
 
     @property
     def rw_table(self):
-        return self.__rw_table     
+        return self.__rw_table      """

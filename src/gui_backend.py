@@ -14,9 +14,9 @@ from cache_analysis.cache_risk_level import CacheRisk
 from cache_analysis.new_cache.fixponit import CacheConfig, FixpointGraph
 from cache_analysis.read_segment import segmentReader
 from cfg.cfg import CallGraph, TCfg, find_cycle, has_cycle, proc_draw_edges, proc_identify
-from cfg.heat_analysis import NewLoopHotnessAnalysis, loop_heat
-from cfg.isa import Instruction
-from cfg.read_asm import AsmFileReader, StatementType
+from hotness.heat_analysis import NewLoopHotnessAnalysis, loop_heat
+from institpr.isa import Instruction
+from synpar.read_asm import AsmFileReader, StatementType
 from rw_analysis.rw_core import loadstore_Obj
 
 
