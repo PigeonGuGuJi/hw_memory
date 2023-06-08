@@ -23,7 +23,6 @@ class RWUnit:
     def __init__(self,instr,node):
         self.__ins = instr
         self.__node = node
-        self.__final_addr = self.__ins.final_addr
         self.__find_cycle = 0
         self.find_trace = list()
         self.__is_find = False

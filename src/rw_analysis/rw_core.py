@@ -21,7 +21,7 @@ class loadstore_Obj:
         self.__ls_proc()
 
         # 处理readwrite问题
-        self.__rw_proc()
+        # self.__rw_proc()
 
 
     def __loop_proc(self):
@@ -53,15 +53,20 @@ class loadstore_Obj:
 
         self.lds_table = self.lsproc.ls_table
 
-        for i in self.lds_table:
-            i.final_addr()
-            i.local_offset()
+        """ for i in self.lds_table:
+            print(i.ins.tokens,i.is_imm_sp,i.is_sp,i.addr_offset)
+            for l in i.target_list:
+                print(l.pm,l.target_name) """
 
-        #for i in lds_table:
-        #    if i.target_num == 1:
-        #       print(i.ins.tokens,i.reg_target,i.final_addr,i.addr_offset,"是否找到",i.is_find,i.node.name) 
-        #    else:
-        #        print(i.ins.tokens,i.reg_target_list[0],i.reg_target_list[1],i.addr_offset,i.final_addr,"是否找到",i.is_find,i.node.name)
+        """ for i in self.lds_table:
+            i.final_addr
+            i.local_offset() """
+
+        for i in self.lds_table:
+            #if i.ins_addr == 4197808:
+            #for target in i.target_list:
+            #    print(target.target_name,target.offset_int,target.base,target.is_find)
+            print(i.ins.tokens,i.final_addr,"偏移",i.backtrace_offset,"基地址",i.base,"是否找到",i.is_find,"是否是immsp",i.is_imm_sp,"是否是sp",i.is_sp,i.node.name) 
     
     def __rw_proc(self):
         self.rwproc = RWProc(self.lds_table)

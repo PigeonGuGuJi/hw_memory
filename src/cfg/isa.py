@@ -10,7 +10,7 @@ from typing import Sequence
 class Re_LoadStore_Ins:
     
     # loadstore指令
-    loadstore_pat = r"ldr|ldp|lda|ldu|str|stp|stl|stu" #所有的loadstore
+    loadstore_pat = r"ldr|ldp|lda|ldu|str|stp|stl|stu|ldrsw" #所有的loadstore
     lsp_pat = r"ldp|stp"#ldp指令，比较难处理
     # 加减指令
     add_pat = r"add|sub"
@@ -21,39 +21,40 @@ class Re_LoadStore_Ins:
     
 
 class Re_LoadStore_Operand:
-    #整理过的字符串，用来拼接正则匹配表达式
+    # 整理过的字符串，用来拼接正则匹配表达式
     reg = r"((?:(?:x|w|s|v|r|s|d|q|h|b)\d{1,2})|wzr|xzr|sp)"
     spacedot = r"\s*\,\s*"
     space = r"\s*"
     anyword = r"(.*)"
     immoffset_str = r"((?:[1-9]\d*)|(?:0x[0-9a-fA-F]*))"   
     
-    #adrp
+    # adrp
     operand_adrp_access_pat = r"([0-9a-fA-F]*)\s*(<.*>)"
     
-    #特殊情况
+    # 特殊情况
     ls_split_pat = space+reg+spacedot+anyword
     ls_bracket_pat = r"\[.*\]"
     ls_bracketUpdate_pat = r"\[.*\]!"
     ls_bracketUpdateAft_pat = r"\[.*\]"+spacedot+anyword
-    #ls_bracketUpdateAft_pat = r"^\[.*\]\s*\,\s*(?:[\s\S]*)\s*"
+    # ls_bracketUpdateAft_pat = r"^\[.*\]\s*\,\s*(?:[\s\S]*)\s*"
     ls_sp_pat = r"(sp)"
     ls_immOffset_pat = r"\#"+immoffset_str
     ls_shift_pat = r"(lsl|lsr|adr|ror)"
     
-    #偏移寻址
+    # 基础
     ls_base_pat = r"^\["+reg+r"\]$"
-    ls_immeOffset_pat = r"\["+reg+spacedot+r"\#(-?)"+immoffset_str+r"\]"
-    ls_regOffset_pat = r"\["+reg+spacedot+r"(-?)"+reg+r"\]"
-    ls_regShift_pat = r"\["+reg+spacedot+r"(-?)"+reg+spacedot+ls_shift_pat+r"\s*\#(-?)"+immoffset_str+r"\]"
-    #先更新寻址
-    ls_immeBef_pat = r"\["+reg+spacedot+r"\#(-?)"+immoffset_str+r"\]!"
-    ls_regBef_pat = r"\["+reg+spacedot+r"(-?)"+reg+r"\]!"
-    ls_regShiftBef_pat = r"\["+reg+spacedot+r"(-?)"+reg+spacedot+ls_shift_pat+r"\s*\#(-?)"+immoffset_str+r"\]!"
-    #后更新寻址  
-    ls_immeAft_pat = r"\["+reg+r"\]"+spacedot+r"\#(-?)"+immoffset_str
-    ls_regAft_pat = r"\["+reg+r"\]"+spacedot+r"(-?)"+reg
-    ls_regShiftAft_pat = r"\["+reg+r"\]"+spacedot+r"(-?)"+reg+spacedot+ls_shift_pat+r"\s*\#(-?)"+immoffset_str
+    # 偏移寻址  
+    ls_immeOffset_pat = r"\["+reg+spacedot+r"\#(-?)"+immoffset_str+r"\]"# 立即数
+    ls_regOffset_pat = r"\["+reg+spacedot+r"(-?)"+reg+r"\]"# 寄存器
+    ls_regShift_pat = r"\["+reg+spacedot+r"(-?)"+reg+spacedot+ls_shift_pat+r"\s*\#(-?)"+immoffset_str+r"\]"# 寄存器移位
+    # 先更新寻址
+    ls_immeBef_pat = r"\["+reg+spacedot+r"\#(-?)"+immoffset_str+r"\]!"# 立即数
+    ls_regBef_pat = r"\["+reg+spacedot+r"(-?)"+reg+r"\]!"# 寄存器
+    ls_regShiftBef_pat = r"\["+reg+spacedot+r"(-?)"+reg+spacedot+ls_shift_pat+r"\s*\#(-?)"+immoffset_str+r"\]!"# 寄存器移位
+    # 后更新寻址  
+    ls_immeAft_pat = r"\["+reg+r"\]"+spacedot+r"\#(-?)"+immoffset_str# 立即数
+    ls_regAft_pat = r"\["+reg+r"\]"+spacedot+r"(-?)"+reg# 寄存器
+    ls_regShiftAft_pat = r"\["+reg+r"\]"+spacedot+r"(-?)"+reg+spacedot+ls_shift_pat+r"\s*\#(-?)"+immoffset_str# 寄存器移位
 
 
 class Address:
@@ -77,6 +78,59 @@ class Address:
             return self.__int == int(other, 16)
         elif isinstance(other, Address):
             return self.__int == other.__int
+
+
+class  ls_target:
+    def __init__(self,pm,target_name):
+        self.re_hex_addr = re.compile(r"[0-9a-fA-F]{1,}")
+        self.pm = pm
+        if pm is None or pm == "":
+            self.pm = "+"
+        
+        self.target_name = target_name
+        self.base = 0
+        self.offset_int = 0
+
+        self.is_sp = False
+        self.is_find = False
+        self.is_base = False
+        self.is_num = False
+
+    def set_new_target(self,target_name):
+        self.target_name = target_name
+
+    def set_base(self,base):
+        self.base = base
+
+    def add_offset(self,offset):
+        temp = 0
+        if isinstance(offset, int):
+            temp = offset
+        else:
+            is_hex_addr = re.match(self.re_hex_addr,offset)
+            if is_hex_addr:
+                temp = int(offset,16)
+
+        self.offset_int += temp
+
+    
+    def set_is_sp(self):
+        self.is_find = True
+        self.is_sp = True
+
+    # isfind只表示终止查找
+    def set_is_find(self):
+        self.is_find = True
+
+    def set_is_num(self):
+        self.is_num = True
+        self.is_find = True
+    
+    def set_is_base(self):
+        self.is_base = True
+        self.is_num = True
+        self.is_find = True
+
 
 
 class InstructionType(Enum):
@@ -204,45 +258,39 @@ class Instruction:
 
     def __load_store_identify(self):
         self.__is_ls = False
-        self.__is_nsp = False#用于判断是否是sp寄存器
+        self.__is_nsp = False # 用于判断是否是sp寄存器
         self.__ls_handle = False
-        self.__find_target = False
-        self.is_data_group = False#用于判断是否需要读入一个数组
+        self.is_data_group = False # 用于判断是否需要读入一个数组
 
         self.__ls_addr_mode = None
         self.__ls_data_width = 32
-        self.__ls_first_opperand = None
-        self.__ls_target_num = 1
-        self.__ls_reg_target = None
-        self.__ls_reg_target_list = list()#如果需要寻找的目标寄存器超过一个，则需要启用list
-        self.__ls_addr_offset = 0
+
+        # 这部分是给ls地址分析留的
+        self.__ls_first_opperand = None # 第一个操作数，也就是实际上存入/读取的地方
+        self.__ls_reg_target_list = list() # 所有的regtarget都存在list中，除非是sp
+        self.__ls_addr_offset = 0 # 在第一遍指令对象化的时候会将基本的地址偏移算出来
         
-        #final_addr会在ls分析之后设置，是可以用于交付的值
-        self.__ls_final_addr = 0
-        self.__ls_local_offset = 0
-        self.ls_final_addr = 0
 
         is_loadstore = re.match(self.__loadstore_cpat,self.__name)
         if is_loadstore:
 
-            #print(self.tokens)
+            # print(self.tokens)
             self.__type = InstructionType.LoadStore
             self.__is_ls = True
             
-            #TODO: LSP处理流程
+            # TODO: LSP处理流程
             is_lsp = re.match(self.__lsp_cpat,self.__name)
             if is_lsp:
                 pass
-
             else:
-                #print(self.tokens)
+                # print(self.tokens)
                 self.__ls_handle = True
 
                 ls_op_slip = re.match(self.__ls_split_cpat,self.tokens[4])
                 #print(self.tokens)
                 temp_op = ls_op_slip.groups()
-                self.__ls_first_opperand = temp_op[0]
-                self.addrmode = temp_op[1]
+                self.__ls_first_opperand = temp_op[0] # 第一个操作数，实际上存取的地方
+                self.addrmode = temp_op[1] # 这里的表述有点问题，这边实际上是addr_mode的字段
 
                 is_base = re.match(self.__ls_base_cpat,self.addrmode)
                 is_bracket = re.match(self.__ls_bracket_cpat,self.addrmode)
@@ -253,11 +301,11 @@ class Instruction:
                     self.__ls_addr_mode = AddrMode.Base
 
                     temp = is_base.groups()
-                    self.__ls_reg_target = temp[0]
+                    temp_target = ls_target("+",temp[0])
+                    self.__ls_reg_target_list.append(temp_target)
 
-                    if self.__ls_reg_target == "sp":
+                    if temp_target.target_name == "sp":
                         self.__is_nsp = False
-                        self.__ls_local_offset = 0#说明是真的没有偏移
                     else:
                         self.__is_nsp = True
                 
@@ -272,31 +320,31 @@ class Instruction:
 
                         temp = is_immAft.groups()
                         target_reg = temp[0]
-                        pm = temp[1]
+                        pm = temp[1]#正负号
                         strOffset = temp[2]
 
                         self.__immOffsetTypeProc(target_reg,pm,strOffset)
                     
                     elif is_regAft:
-                        self.__ls_target_num = 2
                         self.__ls_addr_mode = AddrMode.RegAft
 
                         temp = is_regAft.groups()
                         target_reg1 = temp[0]
-                        target_reg2 = [temp[1],temp[2]]
+                        target_reg2 = temp[2]
+                        target_reg2_pm = temp[1]
 
-                        self.__regOffsetPorc(target_reg1,target_reg2)
+                        self.__regOffsetPorc(target_reg1,target_reg2,target_reg2_pm)
 
                     
                     elif is_regShiftAft:
-                        self.__ls_target_num = 2
                         self.__ls_addr_mode = AddrMode.RegShiftAft
 
                         temp = is_regShiftAft.groups()
                         target_reg1 = temp[0]
-                        target_reg2 = [temp[1],temp[2]]
+                        target_reg2 = temp[2]
+                        target_reg2_pm = temp[1]
 
-                        self.__regOffsetPorc(target_reg1,target_reg2)
+                        self.__regOffsetPorc(target_reg1,target_reg2,target_reg2_pm)
 
                         
                 
@@ -317,24 +365,24 @@ class Instruction:
                         self.__immOffsetTypeProc(target_reg,pm,strOffset)
 
                     elif is_regBef:
-                        self.__ls_target_num = 2
                         self.__ls_addr_mode = AddrMode.RegBef
 
                         temp = is_regBef.groups()
                         target_reg1 = temp[0]
-                        target_reg2 = [temp[1],temp[2]]
+                        target_reg2 = temp[2]
+                        target_reg2_pm = temp[1]
 
-                        self.__regOffsetPorc(target_reg1,target_reg2)
+                        self.__regOffsetPorc(target_reg1,target_reg2,target_reg2_pm)
 
                     elif is_regShiftBef:
-                        self.__ls_target_num = 2
                         self.__ls_addr_mode = AddrMode.RegShiftBef
 
                         temp = is_regShiftBef.groups()
                         target_reg1 = temp[0]
-                        target_reg2 = [temp[1],temp[2]]
+                        target_reg2 = temp[2]
+                        target_reg2_pm = temp[1]
 
-                        self.__regOffsetPorc(target_reg1,target_reg2)
+                        self.__regOffsetPorc(target_reg1,target_reg2,target_reg2_pm)
                 
                 elif is_bracket:
 
@@ -353,32 +401,34 @@ class Instruction:
                         self.__immOffsetTypeProc(target_reg,pm,strOffset)
 
                     elif is_regOffset:
-                        self.__ls_target_num = 2
                         self.__ls_addr_mode = AddrMode.RegOffset
 
                         temp = is_regOffset.groups()
                         target_reg1 = temp[0]
-                        target_reg2 = [temp[1],temp[2]]
+                        target_reg2 = temp[2]
+                        target_reg2_pm = temp[1]
 
-                        self.__regOffsetPorc(target_reg1,target_reg2)
+                        self.__regOffsetPorc(target_reg1,target_reg2,target_reg2_pm)
 
                     elif is_regShift:
-                        self.__ls_target_num = 2
                         self.__ls_addr_mode = AddrMode.RegShift
 
                         temp = is_regShift.groups()
                         target_reg1 = temp[0]
-                        target_reg2 = [temp[1],temp[2]]
+                        target_reg2 = temp[2]
+                        target_reg2_pm = temp[1]
 
-                        self.__regOffsetPorc(target_reg1,target_reg2)
-
-    def __is_sp(self,matchworld):
-        re_sp = re.match(self.__ls_sp_cpat,matchworld)
-        if re_sp:
-            self.__is_nsp = True
+                        self.__regOffsetPorc(target_reg1,target_reg2,target_reg2_pm)
                   
     def __immOffsetTypeProc(self,reg_target,offset_pm,offset_str):
-        self.__ls_reg_target = reg_target
+        temp_target = ls_target("+",reg_target)
+        self.__ls_reg_target_list.append(temp_target)
+
+        if reg_target == "sp":
+            self.__is_nsp = False
+        else:
+            self.__is_nsp = True
+
         pm = offset_pm
         strOffset = offset_str
 
@@ -393,22 +443,38 @@ class Instruction:
             else:
                 self.__ls_addr_offset = -int(strOffset)
 
-        if self.__ls_reg_target == "sp":
+        
+
+    def __regOffsetPorc(self,reg_target1,reg_target2,reg_target2_pm):
+        temp_target_1 = ls_target("+",reg_target1)
+        self.__ls_reg_target_list.append(temp_target_1)
+        temp_target_2 = ls_target(reg_target2_pm,reg_target2)
+        self.__ls_reg_target_list.append(temp_target_2)
+
+        if reg_target1 == "sp":
             self.__is_nsp = False
-            self.__ls_local_offset += self.__ls_addr_offset
+        else:
+            self.__is_nsp = True
+        if reg_target2 == "sp":
+            self.__is_nsp = False
         else:
             self.__is_nsp = True
 
-    def __regOffsetPorc(self,reg_target1,reg_target2):
-        self.__ls_reg_target_list.append(reg_target1)
-        self.__ls_reg_target_list.append(reg_target2)
-        pass
 
-    def __regShiftPorc(self,reg_target1,reg_target2):
-        self.__ls_reg_target_list.append(reg_target1)
-        self.__ls_reg_target_list.append(reg_target2)
-        pass
+    def __regShiftPorc(self,reg_target1,reg_target2,reg_target2_pm):
+        temp_target_1 = ls_target("+",reg_target1)
+        self.__ls_reg_target_list.append(temp_target_1)
+        temp_target_2 = ls_target(reg_target2_pm,reg_target2)
+        self.__ls_reg_target_list.append(temp_target_2)
 
+        if reg_target1 == "sp":
+            self.__is_nsp = False
+        else:
+            self.__is_nsp = True
+        if reg_target2 == "sp":
+            self.__is_nsp = False
+        else:
+            self.__is_nsp = True
 
     @property
     def is_ls(self):
@@ -422,8 +488,6 @@ class Instruction:
     def ls_handle(self):
         return self.__ls_handle  
     
-    def set_find_target(self):
-        self.__find_target = True
 
     @property
     def ls_addr_mode(self):
@@ -436,14 +500,6 @@ class Instruction:
     @property
     def ls_first_opperand(self):
         return self.__ls_first_opperand
-
-    @property
-    def ls_target_num(self):
-        return self.__ls_target_num
-      
-    @property
-    def ls_reg_target(self):
-        return self.__ls_reg_target
     
     @property
     def ls_reg_target_list(self):
@@ -452,20 +508,7 @@ class Instruction:
     @property
     def ls_addr_offset(self):
         return self.__ls_addr_offset
-    
-    @property
-    def final_addr(self):
-        return self.__ls_final_addr
-    
-    def set_final_addr(self,num):
-        self.__ls_final_addr = num
 
-    @property
-    def local_offset(self):
-        return self.__ls_local_offset
-    
-    def set_local_offset(self,num):
-        self.__ls_local_offset = num
 
     def __adrp_identify(self):
 

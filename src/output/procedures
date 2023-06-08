@@ -26,20 +26,20 @@ digraph "Procedure Graph" {
 	ManiplateData2
 	_fini
 	_init -> call_weak_fn
-	_start -> "abort@plt"
 	_start -> "__libc_start_main@plt"
+	_start -> "abort@plt"
 	__wrap_main -> main
 	call_weak_fn -> "__gmon_start__@plt"
 	__do_global_dtors_aux -> deregister_tm_clones
 	frame_dummy -> register_tm_clones
-	main -> SwapMesh
-	main -> CompareMesh
-	main -> ComplexDataHandle
-	main -> InitializeMesh_1
-	main -> "putchar@plt"
 	main -> Mesh_dot
 	main -> Mesh2
 	main -> InitializeMesh_2
+	main -> ComplexDataHandle
+	main -> InitializeMesh_1
+	main -> SwapMesh
+	main -> CompareMesh
+	main -> "putchar@plt"
 	InitializeMesh_1 -> "random@plt"
 	InitializeMesh_2 -> "random@plt"
 	ComplexDataHandle -> ManiplateData2
