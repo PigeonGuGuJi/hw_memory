@@ -3,7 +3,7 @@
 import random
 from rw_analysis.loadstore import LSProc
 from rw_analysis.rw_condition import RWProc, RWType
-from rw_analysis.rw_output import RWOut_Proc
+from rw_analysis.tolerance_calcu import Tolerance_Calcu
 
 
 class loadstore_Obj:
@@ -21,7 +21,7 @@ class loadstore_Obj:
         self.__ls_proc()
 
         # 处理readwrite问题
-        # self.__rw_proc()
+        self.__rw_proc()
 
 
     def __loop_proc(self):
@@ -47,6 +47,9 @@ class loadstore_Obj:
             if e.is_backEdge:
                 e.loop_value = 500
                 e.edge_value = 2
+
+        # for e in self.tcfg_nodes:
+        #     print(e.node_value)
     
     def __ls_proc(self):
         self.lsproc = LSProc(self.tcfg_nodes)
@@ -62,11 +65,12 @@ class loadstore_Obj:
             i.final_addr
             i.local_offset() """
 
-        for i in self.lds_table:
+        #for i in self.lds_table:
             #if i.ins_addr == 4197808:
             #for target in i.target_list:
             #    print(target.target_name,target.offset_int,target.base,target.is_find)
-            print(i.ins.tokens,i.final_addr,"偏移",i.backtrace_offset,"基地址",i.base,"是否找到",i.is_find,"是否是immsp",i.is_imm_sp,"是否是sp",i.is_sp,i.node.name) 
+        #    if not i.is_imm_sp:
+        #        print(i.ins.tokens,i.final_addr,"偏移",i.backtrace_offset,"基地址",i.base,"是否是immsp",i.is_imm_sp,"是否是sp",i.is_sp,i.node.name) 
     
     def __rw_proc(self):
         self.rwproc = RWProc(self.lsproc)
@@ -75,7 +79,8 @@ class loadstore_Obj:
         Global_Intolerant_value = 0
 
         #for rwu in self.rwproc.rw_table:
-            #print(rwu.ins.tokens,rwu.find_cycle,rwu.ins.final_addr,rwu.is_torrent,rwu.node.name)
+        #    if rwu.is_find:
+        #        print(rwu.node.name,rwu.ins.tokens,rwu.find_cycle,rwu.final_addr,rwu.torrent_type)
             #if rwu.is_torrent == RWType.Global_Tolerant:
             #    Global_Tolerant_value += rwu.find_cycle
             #    print(rwu.ins.tokens,rwu.ins.final_addr,rwu.node.name,rwu.is_torrent,rwu.find_cycle,rwu.ins.is_data_group)
@@ -89,9 +94,9 @@ class loadstore_Obj:
         #print("全局的容错路径为：",Global_Tolerant_value)
         #print("全局的非容错路径为：",Global_Intolerant_value)  
 
-        rwout = RWOut_Proc(self.tcfg_nodes,self.segreader,self.rwproc.rw_table,self.tcfg_loops)
+        tol_cal = Tolerance_Calcu(self.tcfg_nodes,self.segreader,self.rwproc.rw_table,self.tcfg_loops)
 
-        self.loop_info = rwout.loopinfo
+        #self.loop_info = rwout.loopinfo
 
         # for k,v in self.loop_info.items():
         #    print(k,v)

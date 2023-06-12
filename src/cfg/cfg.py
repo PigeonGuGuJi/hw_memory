@@ -5,6 +5,7 @@
 @FileName   : cfg.py
 @Description: 
 """
+from dataclasses import dataclass
 import types
 from collections import deque
 from enum import Enum, auto
@@ -338,6 +339,26 @@ class TCfgEdgeType(Enum):
     ProcReturn = auto()
     Believed = auto()
 
+@dataclass
+class RWAnalysis:
+    is_back_edge: bool = False
+    edge_value: int = 0
+    loop_value: int = 0
+
+@dataclass
+class LSAnalysis:
+    addr: int = 0
+
+class InstCopyInCfg:
+    def __init__(self, inst: Instruction) -> None:
+        self._base_inst = inst
+    
+        self.ls_info = LSAnalysis()
+
+    @property
+    def base_inst(self):
+        return self._base_inst
+
 
 class TCfgEdge:
     def __init__(self, src: TCfgNode, dst: TCfgNode, kind: TCfgEdgeType):
@@ -346,6 +367,9 @@ class TCfgEdge:
         self.__kind = kind
 
         # 读写分析需要的数据
+        self.rw_info = RWAnalysis()
+
+
         self.is_backEdge = False
         self.edge_value = 0
         self.loop_value = 0

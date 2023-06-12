@@ -97,9 +97,12 @@ class LSUnit:
     def final_addr(self):
         # print(self.__base,type(self.__original_offset),type(self.backtrace_offset),type(self.__base))
 
-        self.__final_addr = self.__original_offset + self.backtrace_offset + self.__base
-    
-        
+        if self.__is_imm_sp:
+            self.__final_addr = 0
+        elif self.__is_sp:
+            self.__final_addr = self.__base
+        else:
+            self.__final_addr = self.__original_offset + self.backtrace_offset + self.__base
         
         return self.__final_addr
 
@@ -193,10 +196,10 @@ class LSProc:
         for lsunit in self.__ls_table:
             self.__ls_dir[lsunit.node.name].append(lsunit)
 
-        for k in self.__ls_dir:
+        """ for k in self.__ls_dir:
             print(k)
             for v in self.__ls_dir[k]:
-                print(v.ins.tokens)
+                print(v.ins.tokens) """
                             
 
     def __target_list_proc(self,lsunit,ins):
