@@ -5,18 +5,18 @@
 @FileName   : cfg.py
 @Description: 
 """
-from dataclasses import dataclass
 import types
+import warnings
 from collections import deque
+from dataclasses import dataclass
 from enum import Enum, auto
-from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
+from typing import Dict, List, Optional, Sequence, Set, Tuple
 
 from graphviz import Digraph
-from graphviz.dot import Dot
+from tabulate import tabulate
 
 from institpr.isa import Address, Instruction
 from synpar.read_asm import StatementType
-import random
 
 
 class Procedure:
@@ -25,13 +25,19 @@ class Procedure:
         self.__beg_addr = beg_addr
         self.__instructions = tuple(instructions)
 
-        self.from_proc: Set[Procedure] = set()
-        self.to_proc: Set[Procedure] = set()
+        self.__is_plt = "@plt" in self.__name
+
+        self.incoming_proc: Set[Procedure] = set()
+        self.outgoing_proc: Set[Procedure] = set()
 
     @property
     def name(self):
         """ Return the name/label of procedure. """
         return self.__name
+
+    @property
+    def is_plt(self):
+        return self.__is_plt
 
     @property
     def beg_addr(self):
@@ -44,95 +50,141 @@ class Procedure:
         return self.__instructions
 
 
-def proc_identify(statements: list):
-    all_proc: List[Procedure] = list()
+class ProcedureNetwork:
 
-    proc_name, proc_addr, proc_inst = None, None, list()
-    for s in statements:
-        s: Tuple[StatementType, tuple]
-        if s[0] == StatementType.Instruction:
-            proc_inst.append(s[1])
-        elif s[0] == StatementType.SubProcedure:
+    @staticmethod
+    def __parser_from_asm_reader(asm_statements: list):
+        statements = list()
+        for s in asm_statements:
+            s: Tuple[StatementType, tuple]
+            if s[0] == StatementType.Instruction:
+                statements.append((s[0], Instruction(s[1])))
+            elif s[0] == StatementType.SubProcedure:
+                statements.append(s)
+        return statements
+
+    @staticmethod
+    def __proc_identify(statements: list):
+        all_proc: List[Procedure] = list()
+
+        proc_name, proc_addr, proc_inst = None, None, list()
+        for s in statements:
+            s: Tuple[StatementType, tuple]
+            if s[0] == StatementType.Instruction:
+                proc_inst.append(s[1])
+            elif s[0] == StatementType.SubProcedure:
+                if proc_name is not None and proc_addr is not None:
+                    all_proc.append(Procedure(proc_name, proc_addr, proc_inst))
+                proc_addr, proc_name = Address(s[1][0]), s[1][1]
+                proc_inst.clear()
+        else:
             if proc_name is not None and proc_addr is not None:
                 all_proc.append(Procedure(proc_name, proc_addr, proc_inst))
-            proc_addr, proc_name = Address(s[1][0]), s[1][1]
-            proc_inst.clear()
-    else:
-        if proc_name is not None and proc_addr is not None:
-            all_proc.append(Procedure(proc_name, proc_addr, proc_inst))
 
-    return all_proc
+        return all_proc
 
+    def __find_cycle(self) -> Optional[List[Procedure]]:
+        def dfs(proc, visited_proc, path):
+            visited_proc.add(proc)
+            path.append(proc)
+            for to_p in proc.outgoing_proc:
+                if to_p in path:
+                    return path[path.index(to_p):]
+                elif to_p not in visited_proc:
+                    f_cycle = dfs(to_p, visited_proc, path)
+                    if f_cycle:
+                        return f_cycle
+            path.pop()
+            return None
 
-def proc_draw_edges(procedures: List[Procedure]):
-    for proc in procedures:
-        proc.from_proc.clear()
-        proc.to_proc.clear()
-    proc_mapping: Dict[str, Procedure] = {proc.name: proc for proc in procedures}
+        cycle = None
+        visited = set()
+        for p in self.__procedures:
+            if p not in visited:
+                cycle = dfs(p, visited, [])
+                if cycle:
+                    break
+        return cycle
 
-    for proc in proc_mapping.values():
-        instructions = proc.instruction
-        for inst in instructions:
-            b, _, label, _, _ = inst.branch_info
-            if b and (label != proc.name):
-                proc.to_proc.add(proc_mapping[label])
-                proc_mapping[label].from_proc.add(proc)
+    def __proc_draw_edges(self):
+        """
+        This function is used to build the call graph of the procedures.
+        """
+        for proc in self.__procedures:
+            proc.incoming_proc.clear()
+            proc.outgoing_proc.clear()
 
+        for proc in self.__proc_name2instance.values():
+            instructions = proc.instruction
+            for inst in instructions:
+                b, _, label, _, _ = inst.branch_info
+                if b and (label != proc.name):
+                    proc.outgoing_proc.add(self.__proc_name2instance[label])
+                    self.__proc_name2instance[label].incoming_proc.add(proc)
 
-def has_cycle(procedures: List[Procedure]) -> bool:
-    in_degree = {p: 0 for p in procedures}
-    for p in procedures:
-        for to_p in p.to_proc:
-            in_degree[to_p] += 1
-    queue = [p for p in procedures if in_degree[p] == 0]
-    while queue:
-        p = queue.pop(0)
-        for to_p in p.to_proc:
-            in_degree[to_p] -= 1
-            if in_degree[to_p] == 0:
-                queue.append(to_p)
-    return any(in_degree.values())
+    def __init__(self, asm_statements: list):
+        statements = self.__parser_from_asm_reader(asm_statements)
+        self.__procedures = self.__proc_identify(statements)
+        self.__proc_name2instance: Dict[str, Procedure] = {proc.name: proc for proc in self.__procedures}
 
+        self.__proc_draw_edges()
+        if (possible_cycle := self.__find_cycle()) is not None:
+            c = [p.name for p in possible_cycle]
+            raise RuntimeError("Loop between procedures is not allowed: {}.".format(c))
 
-def find_cycle(procedures: List[Procedure]) -> Optional[List[Procedure]]:
-    def dfs(proc, visited_proc, path):
-        visited_proc.add(proc)
-        path.append(proc)
-        for to_p in proc.to_proc:
-            if to_p in path:
-                return path[path.index(to_p):]
-            elif to_p not in visited_proc:
-                f_cycle = dfs(to_p, visited_proc, path)
-                if f_cycle:
-                    return f_cycle
-        path.pop()
-        return None
+    @property
+    def procedures(self):
+        return self.__procedures
 
-    cycle = None
-    visited = set()
-    for p in procedures:
-        if p not in visited:
-            cycle = dfs(p, visited, [])
-            if cycle:
-                break
-    return cycle
+    @property
+    def mapping_name2instance(self):
+        return self.__proc_name2instance
 
+    def api_basic(self) -> list:
+        data = list()
+        for proc in self.__procedures:
+            begin_addr = proc.beg_addr.val()
+            inst_len = len(proc.instruction)
+            stop_addr = begin_addr + inst_len * 4
+            begin_addr, stop_addr = hex(begin_addr), hex(stop_addr)
+            data.append([proc.name, begin_addr, stop_addr, inst_len])
+        return data
 
-def draw_proc(procedures: List[Procedure], filename='procedure_graph.gv', fmt='svg') -> Digraph:
-    g = Digraph('Procedure Graph', filename=filename, format=fmt)
-    for proc in procedures:
-        g.node(proc.name)
-    for proc in procedures:
-        for to_proc in proc.to_proc:
-            g.edge(proc.name, to_proc.name)
-    return g
+    def formatted_basic(self, fmt='psql') -> str:
+        header = ['Name', 'Begin Addr', 'Stop Addr', 'Inst Len']
+        data = self.api_basic()
+        return tabulate(data, headers=header, tablefmt=fmt)
+
+    def api_call_relation(self, fmt: bool = False) -> list:
+        data = list()
+        for proc in self.__procedures:
+            incoming = tuple([p.name for p in proc.incoming_proc])
+            outgoing = tuple([p.name for p in proc.outgoing_proc])
+            if fmt:
+                data.append([proc.name, '\n'.join(incoming), '\n'.join(outgoing)])
+            else:
+                data.append([proc.name, incoming, outgoing])
+        return data
+
+    def formatted_call_relation(self, fmt='grid') -> str:
+        header = ['Name', 'Incoming', 'Outgoing']
+        data = self.api_call_relation(fmt=True)
+        return tabulate(data, headers=header, tablefmt=fmt)
+
+    def dot_call_graph(self, filename='procedure_graph.gv', fmt='svg') -> Digraph:
+        g = Digraph('Procedure Graph', filename=filename, format=fmt)
+        for proc in self.__procedures:
+            g.node(proc.name)
+        for proc in self.__procedures:
+            for to_proc in proc.outgoing_proc:
+                g.edge(proc.name, to_proc.name)
+        return g
 
 
 class CallGraphNode:
     def __init__(self, name: str, proc: Procedure):
         self.__name = name
         self.__proc = proc
-        self.__is_plt = proc.name.endswith('@plt')
 
         self.from_edges = list()
         self.to_edges = list()
@@ -147,7 +199,7 @@ class CallGraphNode:
 
     @property
     def is_plt(self):
-        return self.__is_plt
+        return self.__proc.is_plt
 
 
 class CallGraphEdge:
@@ -171,6 +223,7 @@ class CallGraph:
 
         self.__nodes: Tuple[CallGraphNode] = tuple()
         self.__edges: Tuple[CallGraphEdge] = tuple()
+
         self.__build()
 
     def __build(self):
@@ -264,7 +317,7 @@ class TCfgNode:
         return self.__instructions
 
     def set_rw_data(self):
-        
+
         # 用来算有多少个入边和出边，still_xx用于下面遍历计算
         # TODO 感觉可以用sizeof类似的优化
         for e in self.outgoing_edge:
@@ -339,20 +392,23 @@ class TCfgEdgeType(Enum):
     ProcReturn = auto()
     Believed = auto()
 
+
 @dataclass
 class RWAnalysis:
     is_back_edge: bool = False
     edge_value: int = 0
     loop_value: int = 0
 
+
 @dataclass
 class LSAnalysis:
     addr: int = 0
 
+
 class InstCopyInCfg:
     def __init__(self, inst: Instruction) -> None:
         self._base_inst = inst
-    
+
         self.ls_info = LSAnalysis()
 
     @property
@@ -368,7 +424,6 @@ class TCfgEdge:
 
         # 读写分析需要的数据
         self.rw_info = RWAnalysis()
-
 
         self.is_backEdge = False
         self.edge_value = 0
