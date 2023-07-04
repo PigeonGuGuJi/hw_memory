@@ -6,9 +6,7 @@
 @Description: 
 """
 import types
-import warnings
 from collections import deque
-from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 
@@ -186,8 +184,8 @@ class CallGraphNode:
         self.__name = name
         self.__proc = proc
 
-        self.from_edges = list()
-        self.to_edges = list()
+        self.incoming_edges = list()
+        self.outgoing_edges = list()
 
     @property
     def name(self):
@@ -217,8 +215,8 @@ class CallGraphEdge:
 
 
 class CallGraph:
-    def __init__(self, procedures: list, start_label: str = 'main'):
-        self.__proc: List[Procedure] = procedures
+    def __init__(self, procedure_network: ProcedureNetwork, start_label: str = 'main'):
+        self.__proc_network = procedure_network
         self.__start_label = start_label
 
         self.__nodes: Tuple[CallGraphNode] = tuple()
@@ -227,13 +225,16 @@ class CallGraph:
         self.__build()
 
     def __build(self):
-        proc_mapping = {p.name: p for p in self.__proc}
-        if self.__start_label not in proc_mapping:
+        mapping_name2instance = self.__proc_network.mapping_name2instance
+        if self.__start_label not in mapping_name2instance:
             raise KeyError("Unknown start label {}.".format(self.__start_label))
 
         nodes_list, edges_list = list(), list()
 
-        bfs_q = deque([CallGraphNode(proc_mapping[self.__start_label].name, proc_mapping[self.__start_label])])
+        entry_proc = mapping_name2instance[self.__start_label]
+        bfs_q = deque(
+            [CallGraphNode(entry_proc.name, entry_proc)]
+        )
         while len(bfs_q) != 0:
             node: CallGraphNode = bfs_q.popleft()
             nodes_list.append(node)
@@ -241,10 +242,12 @@ class CallGraph:
             for inst in proc.instruction:
                 b, _, label, _, _ = inst.branch_info
                 if b and (label != proc.name):
-                    new_node = CallGraphNode("{}|{}#{}".format(node.name, inst.addr.hex_str(), label), proc_mapping[label])
+                    new_node = CallGraphNode(
+                        f"{node.name}|{inst.addr.hex_str()}#{label}", mapping_name2instance[label]
+                    )
                     edge = CallGraphEdge(node, new_node)
-                    node.to_edges.append(edge)
-                    new_node.from_edges.append(edge)
+                    node.outgoing_edges.append(edge)
+                    new_node.incoming_edges.append(edge)
                     bfs_q.append(new_node)
                     edges_list.append(edge)
 
@@ -258,6 +261,22 @@ class CallGraph:
     @property
     def edges(self):
         return self.__edges
+
+    def api_call_relation(self, fmt: bool = False) -> list:
+        data = list()
+        for node in self.__nodes:
+            incoming = tuple([e.src.name for e in node.incoming_edges])
+            outgoing = tuple([e.dst.name for e in node.outgoing_edges])
+            if fmt:
+                data.append([node.name, '\n'.join(incoming), '\n'.join(outgoing)])
+            else:
+                data.append([node.name, incoming, outgoing])
+        return data
+
+    def formatted_call_relation(self, fmt='grid') -> str:
+        header = ['Name', 'Incoming', 'Outgoing']
+        data = self.api_call_relation(fmt=True)
+        return tabulate(data, headers=header, tablefmt=fmt)
 
     def draw_graph(self, filename='call_graph.gv', fmt='svg') -> Digraph:
         g = Digraph('Call Graph', filename=filename, format=fmt)
@@ -279,6 +298,7 @@ class TCfgNode:
         self.outgoing_edge: List[TCfgEdge] = list()
         self.incoming_edge: List[TCfgEdge] = list()
 
+        """
         # 读写分析和建立需要用到的数据
         self.still_out_num = 0
         self.out_num = 0
@@ -299,6 +319,7 @@ class TCfgNode:
         self.storelist = list()
         self.heat_ld_result = dict()
         self.heat_st_result = dict()  # 储存着所有的地址对应的次数
+        """
 
     @property
     def name(self):
@@ -316,6 +337,7 @@ class TCfgNode:
     def instructions(self):
         return self.__instructions
 
+    """
     def set_rw_data(self):
 
         # 用来算有多少个入边和出边，still_xx用于下面遍历计算
@@ -382,6 +404,7 @@ class TCfgNode:
                         pass
                     else:
                         e.edge_value = self.node_value / self.out_num
+    """
 
 
 class TCfgEdgeType(Enum):
@@ -393,6 +416,7 @@ class TCfgEdgeType(Enum):
     Believed = auto()
 
 
+"""
 @dataclass
 class RWAnalysis:
     is_back_edge: bool = False
@@ -414,6 +438,7 @@ class InstCopyInCfg:
     @property
     def base_inst(self):
         return self._base_inst
+"""
 
 
 class TCfgEdge:
@@ -422,8 +447,10 @@ class TCfgEdge:
         self.__dst = dst
         self.__kind = kind
 
+        """
         # 读写分析需要的数据
         self.rw_info = RWAnalysis()
+        """
 
         self.is_backEdge = False
         self.edge_value = 0
@@ -452,9 +479,11 @@ class TCfgLoop:
 
         self.bound = 0
 
+        """
         self.loop_ld_heat = dict()
         self.loop_st_heat = dict()
         self.page_heat_result = dict()  # 这个就不分ld还是st了，因为最后热度就是相加
+        """
 
     @property
     def name(self):
