@@ -10,7 +10,7 @@ class loadstore_Obj:
     
     def __init__(self,segreader,tcfg): 
         self.tcfg_nodes = tcfg.all_nodes
-        self.tcfg_edges = tcfg.edges
+        self.tcfg_edges = tcfg.all_tcfg_edges
         self.tcfg_loops = tcfg.loops
         self.segreader = segreader
         

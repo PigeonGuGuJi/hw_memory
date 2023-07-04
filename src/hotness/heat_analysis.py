@@ -4,7 +4,7 @@ from typing import List, Tuple
 
 from cache_analysis.new_cache.fixponit import CacheConfig, FixpointGraph, fixpoint, read_from_file
 from cache_analysis.read_segment import segmentReader
-from cfg.cfg import CallGraph, TCfg, TCfgLoopHrchy, TCfgNode, proc_draw_edges, proc_identify
+from cfg.cfg import TCfgAsCallGraph, TCfg, TCfgLoopHrchy, TCfgNode, proc_draw_edges, proc_identify
 from institpr.isa import Instruction
 from synpar.read_asm import AsmFileReader, StatementType
 

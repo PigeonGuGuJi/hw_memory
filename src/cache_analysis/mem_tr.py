@@ -65,7 +65,7 @@ tcfg = TCfg(call_graph)
 tcfg.build_tcfg()
 
 tcfg_nodes = tcfg.all_nodes
-tcfg_edges = tcfg.edges
+tcfg_edges = tcfg.all_tcfg_edges
 
 g = tcfg.draw_graph()
 g.render(filename='tcfg', directory='./output', format='svg')

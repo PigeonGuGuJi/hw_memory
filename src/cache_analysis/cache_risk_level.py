@@ -28,7 +28,7 @@ class CacheRisk:
     def test(self):
 
         tcfg_nodes = self.tcfg.all_nodes
-        tcfg_edges = self.tcfg.edges
+        tcfg_edges = self.tcfg.all_tcfg_edges
         # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         # get_memory_access ---> cache_information.in
         mem_ls = []

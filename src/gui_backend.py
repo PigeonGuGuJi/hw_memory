@@ -13,7 +13,7 @@ from PyQt5.QtCore import QThread, pyqtSignal
 from cache_analysis.cache_risk_level import CacheRisk
 from cache_analysis.new_cache.fixponit import CacheConfig, FixpointGraph
 from cache_analysis.read_segment import segmentReader
-from cfg.cfg import CallGraph, TCfg, find_cycle, has_cycle, proc_draw_edges, proc_identify
+from cfg.cfg import TCfgAsCallGraph, TCfg, find_cycle, has_cycle, proc_draw_edges, proc_identify
 from hotness.heat_analysis import NewLoopHotnessAnalysis, loop_heat
 from institpr.isa import Instruction
 from synpar.read_asm import AsmFileReader, StatementType
@@ -87,7 +87,7 @@ class WorkerThread(QThread):
         if is_cycle:
             c = [p.name for p in find_cycle(procs)]
             raise RuntimeError("Loop between procedures is not allowed: {}.".format(c))
-        call_graph = CallGraph(procs)
+        call_graph = TCfgAsCallGraph(procs)
         self.tcfg = TCfg(call_graph)
         self.tcfg.build_tcfg()
 
