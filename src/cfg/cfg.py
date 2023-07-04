@@ -600,7 +600,8 @@ class TCfg:
             return
 
         for cluster in self.__clusters:
-            __one_cluster(cluster)
+            if not cluster.call_graph_node.is_plt:
+                __one_cluster(cluster)
 
     def build(self):
         self.__draw_edges_inner_procedure()
