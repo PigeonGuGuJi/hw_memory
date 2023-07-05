@@ -306,7 +306,8 @@ class TCfgNode:
         self.__base_proc = base_proc
         self.__instructions = tuple(instructions)
 
-        self.ident_number = 0
+        self.inside_loop: Optional[TCfgLoopHrchy] = None  # Used for loop hrchy building.
+        self.ident_number = 0  # Used for readable output. This is mutable and not for hashing, so it should not be used for development.
 
         self.outgoing_edge: List[TCfgEdge] = list()
         self.incoming_edge: List[TCfgEdge] = list()
@@ -474,39 +475,39 @@ class TCfgNodeClusterInOneCallGraphNode:
 
 class TCfg:
     def __init__(self, call_graph: TCfgAsCallGraph):
-        self.__call_graph = call_graph
+        self._call_graph = call_graph
 
-        self.__clusters: List[TCfgNodeClusterInOneCallGraphNode] = list()
-        self.__nodes: List[TCfgNode] = list()
-        self.__edges: List[TCfgEdge] = list()
+        self._clusters: List[TCfgNodeClusterInOneCallGraphNode] = list()
+        self._nodes: List[TCfgNode] = list()
+        self._edges: List[TCfgEdge] = list()
 
-        self.__ident2cluster: Dict[str, TCfgNodeClusterInOneCallGraphNode] = dict()
+        self._ident2cluster: Dict[str, TCfgNodeClusterInOneCallGraphNode] = dict()
 
-        for call_graph_node in self.__call_graph.nodes:
+        for call_graph_node in self._call_graph.nodes:
             cluster_node = TCfgNodeClusterInOneCallGraphNode(call_graph_node)
             # Update fields.
-            self.__clusters.append(cluster_node)
-            self.__ident2cluster[cluster_node.call_graph_node.name] = cluster_node
-            self.__nodes.extend(cluster_node.all_nodes)
+            self._clusters.append(cluster_node)
+            self._ident2cluster[cluster_node.call_graph_node.name] = cluster_node
+            self._nodes.extend(cluster_node.all_nodes)
 
-        for idx, node in enumerate(self.__nodes):
+        for idx, node in enumerate(self._nodes):
             node.ident_number = idx
 
     @property
     def clusters(self):
-        return self.__clusters
+        return self._clusters
 
     @property
     def ident2cluster(self):
-        return self.__ident2cluster
+        return self._ident2cluster
 
     @property
     def all_tcfg_nodes(self):
-        return self.__nodes
+        return self._nodes
 
     @property
     def all_tcfg_edges(self):
-        return self.__edges
+        return self._edges
 
     def __new_edge(self, src: TCfgNode, dst: TCfgNode, edge_kind: TCfgEdgeType):
         """ This function is to add an edge from ``src`` to ``dst`` with edge kink ``edge_kind``.
@@ -514,7 +515,7 @@ class TCfg:
         e = TCfgEdge(src, dst, edge_kind)
         src.outgoing_edge.append(e)
         dst.incoming_edge.append(e)
-        self.__edges.append(e)
+        self._edges.append(e)
 
     def __draw_edges_inner_procedure(self):
         """ If one tcfg node ends with a branch instruction, and the target address is within current procedure,
@@ -562,7 +563,7 @@ class TCfg:
 
             return
 
-        for cluster in self.__clusters:
+        for cluster in self._clusters:
             __one_cluster(cluster)
 
     def __draw_edges_inter_procedures(self):
@@ -598,7 +599,7 @@ class TCfg:
 
                     target_call_graph_node_identification = f"{_call_graph_node.name}|{_tail_inst.addr.hex_str()}#{_t_label}"
                     try:
-                        target_cluster = self.__ident2cluster[target_call_graph_node_identification]
+                        target_cluster = self._ident2cluster[target_call_graph_node_identification]
                     except KeyError:
                         raise RuntimeError(f"The Call Graph block named {target_call_graph_node_identification} cannot be found throughout the program.")
                     target_entry_node = target_cluster.entry_node
@@ -612,7 +613,7 @@ class TCfg:
 
             return
 
-        for cluster in self.__clusters:
+        for cluster in self._clusters:
             if not cluster.call_graph_node.is_plt:
                 __one_cluster(cluster)
 
@@ -624,7 +625,7 @@ class TCfg:
         g = Digraph('TCFG', filename=filename, format=fmt)
 
         # Draw nodes.
-        for cluster in self.__clusters:
+        for cluster in self._clusters:
             for node in cluster.all_nodes:
                 if not node.outgoing_edge and not node.incoming_edge:
                     # Dead block elimination.
@@ -643,7 +644,7 @@ class TCfg:
                     )
 
         # Draw edges.
-        for edge in self.__edges:
+        for edge in self._edges:
             kind = edge.kind
             if kind == TCfgEdgeType.Textual:
                 g.edge(edge.src.name, edge.dst.name)
@@ -663,33 +664,33 @@ class TCfg:
 
 class TCfgLoop:
     def __init__(self, name, head: TCfgNode, tail: TCfgNode, back_edge: TCfgEdge, all_nodes: List[TCfgNode]):
-        self.__name = name
-        self.__head: TCfgNode = head
-        self.__tail: TCfgNode = tail
-        self.__back_edge: TCfgEdge = back_edge
-        self.__all_nodes: frozenset[TCfgNode] = frozenset(all_nodes)
+        self._name = name
+        self._head: TCfgNode = head
+        self._tail: TCfgNode = tail
+        self._back_edge: TCfgEdge = back_edge
+        self._all_nodes: frozenset[TCfgNode] = frozenset(all_nodes)
 
         self.bound = 0
 
     @property
     def name(self):
-        return self.__name
+        return self._name
 
     @property
     def head(self):
-        return self.__head
+        return self._head
 
     @property
     def tail(self):
-        return self.__tail
+        return self._tail
 
     @property
     def back_edge(self):
-        return self.__back_edge
+        return self._back_edge
 
     @property
     def all_nodes(self):
-        return self.__all_nodes
+        return self._all_nodes
 
 
 class TCfgLoopHrchy(TCfgLoop):
@@ -698,218 +699,24 @@ class TCfgLoopHrchy(TCfgLoop):
         self.father: Optional[TCfgLoopHrchy] = None
         self.children: List[TCfgLoopHrchy] = list()
 
+    def formatted_loop_info(self):
+        return [
+            self._name,
+            self._head.ident_number, self._tail.ident_number,
+            ", ".join([f"n{node.ident_number}" for node in self._all_nodes]),
+            self.father.name if self.father is not None else "",
+            ", ".join([cl.name for cl in self.children])
+        ]
+
 
 class TCfgWithLoopHrchy(TCfg):
     def __init__(self, call_graph: TCfgAsCallGraph):
         super().__init__(call_graph)
-
-
-
-""" ===================================================================================================================================================== """
-""" ===================================================================================================================================================== """
-""" ===================================================================================================================================================== """
-""" ===================================================================================================================================================== """
-
-'''
-class TCfg:
-    def __init__(self, call_graph: TCfgAsCallGraph):
-
-        self.__call_graph = call_graph
-        self.__nodes_mapping: Dict[CallGraphNode, List[TCfgNode]] = dict()
-
-        self.__nodes: List[TCfgNode] = list()
-        self.__edges: List[TCfgEdge] = list()
-        self.__loops: List[TCfgLoopHrchy] = list()
-
-    def add_loop_bound(self, file_name: str):
-        bound_mapping = dict()
-        with open(file_name, "r", encoding='utf-8') as fp:
-            for line in fp.readlines():
-                lb_src, lb_dst, bound = line.split()
-                bound_mapping[(lb_src, lb_dst)] = int(bound)
-        for lp in self.__loops:
-            if (b := bound_mapping.get(((e := lp.back_edge).src.name, e.dst.name), None)) is None:
-                raise KeyError(f"Cannot find loop bound for loop {lp.name}:{lp.all_nodes} with back edge {lp.back_edge.src.name}-{lp.back_edge.dst.name}.")
-            lp.bound = b
-
-    def build_tcfg(self):
-        self.__build_tcfg()
-
-    def build_loop_hrchy(self):
-        self.__build_loop_hrchy()
-        loop_set = set()
-
-        new_all_loops, new_all_loop_name = list(), set()
-        for lp in self.__loops:
-            if (node_set := tuple(sorted([n.name for n in lp.all_nodes]))) not in loop_set:
-                loop_set.add(node_set)
-                new_all_loops.append(lp)
-                new_all_loop_name.add(lp.name)
-
-        self.__loops = new_all_loops
-        for lp in self.__loops:
-            if (lp.father is not None) and (lp.father.name not in new_all_loop_name):
-                lp.father = None
-            lp.children = [_l for _l in lp.children if _l in new_all_loop_name]
-
-    @property
-    def nodes_mapping(self):
-        return types.MappingProxyType(self.__nodes_mapping)
-
-    @property
-    def all_nodes(self):
-        return self.__nodes
-
-    @property
-    def edges(self):
-        return self.__edges
+        self._loops: List[TCfgLoopHrchy] = list()
 
     @property
     def loops(self):
-        return self.__loops
-
-    def __build_tcfg(self):
-
-        global_idx = 0  # A global counter of all nodes.
-        call_proc_mapping: Dict[str, CallGraphNode] = {p.name: p for p in self.__call_graph.nodes}
-
-        def proc_segmentation(call_proc: CallGraphNode):
-            """ The first step (and also what this function does) is to segment every procedure into several basic blocks.
-                 A segmentation is inserted between instruction i and instruction i+1 if:
-                 - instruction i is a branch or call instruction;
-                 - instruction i is a ``ret`` instruction;
-                 - instruction i+1 is jumped by other branch instruction.
-            """
-
-            nonlocal global_idx
-            proc = call_proc.procedure
-
-            """ Find all segmentation positions. """
-            seg_before_addr = set()
-            seg_after_addr = set()
-
-            for inst in proc.instruction:
-                b, _, t_label, _, t_addr = inst.branch_info
-                if b:
-                    # Situation 1: Instruction is a branch or call instruction.
-                    seg_after_addr.add(inst.addr.val())
-                    if t_label == proc.name:
-                        # Situation 2: Instruction is jumped by other branch instruction.
-                        seg_before_addr.add(t_addr.val())
-                elif inst.name == 'ret':
-                    # Situation 2: Instruction is a ``ret`` instruction.
-                    seg_after_addr.add(inst.addr.val())
-
-            """ Segment every procedure into basic blocks with respect to the segmentation positions. """
-            all_nodes = list()
-
-            inst_slicing = list()
-            for inst in proc.instruction:
-                if inst.addr.val() in seg_before_addr and len(inst_slicing) != 0:
-                    new_node = TCfgNode("n{}".format(global_idx), call_proc, inst_slicing)
-                    global_idx += 1
-                    all_nodes.append(new_node)
-                    inst_slicing.clear()
-                inst_slicing.append(inst)
-                if inst.addr.val() in seg_after_addr and len(inst_slicing) != 0:
-                    new_node = TCfgNode('n{}'.format(global_idx), call_proc, inst_slicing)
-                    global_idx += 1
-                    all_nodes.append(new_node)
-                    inst_slicing.clear()
-            else:
-                if len(inst_slicing) != 0:
-                    new_node = TCfgNode('n{}'.format(global_idx), call_proc, inst_slicing)
-                    global_idx += 1
-                    all_nodes.append(new_node)
-
-            return all_nodes
-
-        finish_node_mapping: Dict[CallGraphNode, TCfgNode] = dict()
-
-        for n in self.__call_graph.nodes:
-            nodes = proc_segmentation(n)
-            self.__nodes_mapping[n] = nodes
-            """ Build a mapping from every call procedure to the begin block and finish block. """
-            finish_nodes = [n for n in nodes if n.instructions[-1].name == 'ret']
-            if len(finish_nodes) > 1:
-                raise RuntimeError("Multi-return of a procedure is not allowed. Check procedure {}.".format(n.name))
-            elif len(finish_nodes) == 0:
-                finish_node_mapping[n] = nodes[-1]
-            else:
-                finish_node_mapping[n] = finish_nodes[0]
-
-        """
-        Build the T-CFG.
-        A taken edge is added from branch-er block to branch-ee block. If conditional branch, a non-taken edge is added from current block to the 
-        next block.
-        A textual edge is added from current block to the next block if it is segmented just because the next block is a branch target.
-        A taken edge is added from caller to the begin block if there is branch instruction targeting different procedure. A believed or return 
-        edge is added from the finish block to the caller after the procedure executing finishing. 
-        """
-
-        def new_edge(src: TCfgNode, dst: TCfgNode, edge_kind: TCfgEdgeType):
-            """ This function is to add an edge from ``src`` to ``dst`` with edge kink ``edge_kind``.
-             The edge will be updated into ``self.__edges``. """
-            e = TCfgEdge(src, dst, edge_kind)
-            src.outgoing_edge.append(e)
-            dst.incoming_edge.append(e)
-            self.__edges.append(e)
-
-        def get_next_block(node_list: List[TCfgNode], n_idx: int):
-            try:
-                return node_list[n_idx]
-            except IndexError:
-                return None
-
-        for call_proc, cfg_nodes in self.__nodes_mapping.items():
-            for node_idx, node in enumerate(cfg_nodes):
-                # For a node in TCfg, if it has branch instruction, then the last one is branch instruction.
-                final_inst = node.instructions[-1]
-                b, cond, label, offset, addr = final_inst.branch_info
-                is_ret = final_inst.name == 'ret'
-
-                if not (b or is_ret):
-                    """ Situation 2: The next block is segmented just because it is a branch target.  """
-                    next_node = get_next_block(cfg_nodes, node_idx + 1)
-                    if next_node is not None:
-                        new_edge(node, next_node, TCfgEdgeType.Textual)
-                elif b:
-                    if is_ret:
-                        raise RuntimeError("Unexpected error.")
-                    if label == call_proc.procedure.name:
-                        """ Situation 1: Current block is a branch-er block. """
-                        # A taken edge is added from branch-er block to branch-ee block.
-                        for check_node in cfg_nodes:
-                            if check_node.inst_range[0].val() == addr.val():
-                                target_node = check_node
-                                break
-                        else:
-                            raise KeyError("Do not found target node with start address {} in sub-procedure {}.".format(addr.hex_str(), call_proc.name))
-                        new_edge(node, target_node, TCfgEdgeType.BranchTaken)
-                        # If conditional branch, a non-taken edge is added from current block to the next block.
-                        if cond:
-                            next_node = get_next_block(cfg_nodes, node_idx + 1)
-                            if next_node is not None:
-                                new_edge(node, next_node, TCfgEdgeType.BranchNoTaken)
-                    else:
-                        """ Situation 3: Current block is a caller and a different procedure is called. """
-                        # Edge from caller to callee.
-                        target_call_proc_name = "{}|{}#{}".format(call_proc.name, final_inst.addr.hex_str(), label)
-                        if target_call_proc_name not in call_proc_mapping:
-                            raise KeyError("Do not found target sub-procedure with name {}.".format(target_call_proc_name))
-                        target_call_proc = call_proc_mapping[target_call_proc_name]
-                        new_edge(node, self.__nodes_mapping[target_call_proc][0], TCfgEdgeType.ProcCall)
-                        # Edge from callee back to caller.
-                        next_node = get_next_block(cfg_nodes, node_idx + 1)
-                        if next_node is not None:
-                            callee_node = finish_node_mapping[target_call_proc]
-                            has_ret = callee_node.instructions[-1].name == 'ret'
-                            kind = TCfgEdgeType.ProcReturn if has_ret else TCfgEdgeType.PltBelieved
-                            new_edge(callee_node, next_node, kind)
-                elif is_ret:
-                    pass
-
-        self.__nodes = sum(list(self.__nodes_mapping.values()), list())
+        return self._loops
 
     @staticmethod
     def __tarjan_scc(nodes_considered: List[TCfgNode], edges_considered: Set[TCfgEdge]) -> List[List[TCfgNode]]:
@@ -963,56 +770,75 @@ class TCfg:
 
         return scc_list
 
-    def __build_loop_hrchy(self):
+    def build_loop_hrchy(self):
 
         loop_counter = 0
 
         def build_subgraph(loop: TCfgLoopHrchy):
             nodes = loop.all_nodes
-            edges = set([e for n in nodes for e in n.outgoing_edge if (e.dst in nodes) and (e != loop.back_edge)])
-            return list(nodes), edges
+            edges = [e for n in nodes for e in n.outgoing_edge if (e.dst in nodes) and (e != loop.back_edge)]
+            return list(nodes), set(edges)
 
-        def find_loops(nodes_considered: List[TCfgNode], edges_considered: Set[TCfgEdge], base=None) -> List[TCfgLoopHrchy]:
+        def find_loops(nodes_considered: List[TCfgNode], edges_considered: Set[TCfgEdge], base=None):
+            """"""
+
+            """ Debug!
+            print(f"Check {[node.ident_number for node in nodes_considered]} "
+                  f"with edge {[(edge.src.ident_number, edge.dst.ident_number) for edge in edges_considered]}")
+            """
             nonlocal loop_counter
+
             loop_list: List[TCfgLoopHrchy] = list()
 
             scc_list = self.__tarjan_scc(nodes_considered, edges_considered)
-            if len(scc_list) == 0:
-                raise RuntimeError("Unexpected error in finding SCCs.")
-            for scc in scc_list:
-                if len(scc) == 1:
-                    continue
-                nodes_set = set(scc)
 
-                """ An affine loop has exactly one entry node and one exit node. The entry node and exit node may be the same. """
+            for scc in scc_list:
+
+                if len(scc) == 1:
+                    """ Check if this is a self-loop. """
+                    self_loop_node = scc[0]
+                    back_edge: List[TCfgEdge] = [e for e in self_loop_node.outgoing_edge if (e in edges_considered) and (e.dst == self_loop_node)]
+                    if len(back_edge) != 0:
+                        loop = TCfgLoopHrchy(f"l{loop_counter}", self_loop_node, self_loop_node, back_edge[0], scc)
+                        loop_counter += 1
+                        loop_list.append(loop)
+                    continue
+
+                nodes_set = set(scc)
+                """ An affine loop has exactly one entry node and one exit node. """
                 loop_entry: List[TCfgNode] = list()
                 loop_exit: List[TCfgNode] = list()
                 for node in nodes_set:
-                    if [e for e in node.incoming_edge if e.src not in nodes_set]:
+                    if [e for e in node.incoming_edge if (e in edges_considered) and (e.src not in nodes_set)]:
                         loop_entry.append(node)
-                    if [e for e in node.outgoing_edge if e.dst not in nodes_set]:
+                    if [e for e in node.outgoing_edge if (e in edges_considered) and (e.dst not in nodes_set)]:
                         loop_exit.append(node)
                 if len(loop_entry) != 1 or len(loop_exit) != 1:
                     raise RuntimeError("Irregular loop found. Loop entry: {}, loop exit: {}. Check nodes {}.".format(
-                        [node.name for node in loop_entry], [node.name for node in loop_exit], [node.name for node in nodes_set]))
+                        [node.ident_number for node in loop_entry],
+                        [node.ident_number for node in loop_exit],
+                        [node.ident_number for node in nodes_set]))
                 entry_node, exit_node = loop_entry[0], loop_exit[0]
 
                 """ An affine loop has exactly one back edge that pointed to the entry node. """
-                back_edge: List[TCfgEdge] = [e for e in entry_node.incoming_edge if e.src in nodes_set]
+                back_edge: List[TCfgEdge] = [e for e in entry_node.incoming_edge if (e in edges_considered) and (e.src in nodes_set)]
                 if len(back_edge) != 1:
                     raise RuntimeError("Irregular loop found. Back edge: {}. Check nodes {}.".format(
-                        [(e.src.name, e.dst.name) for e in back_edge], [node.name for node in nodes_set]))
+                        [(e.src.ident_number, e.dst.ident_number) for e in back_edge], [node.ident_number for node in nodes_set]))
 
                 """ Build all loops. """
-                loop = TCfgLoopHrchy("l{}".format(loop_counter), entry_node, exit_node, back_edge[0], scc)
+                loop = TCfgLoopHrchy(f"l{loop_counter}", entry_node, exit_node, back_edge[0], scc)
                 loop_counter += 1
                 loop_list.append(loop)
 
-                """ Iterative search. """
-                for loop in loop_list:
-                    loop.father = base
-                    c_nodes, c_edges = build_subgraph(loop)
-                    find_loops(c_nodes, c_edges, loop)
+            """ Append loops to self._loops """
+            self._loops.extend(loop_list)
+
+            """ After finding all loops, iterative search for all sub-loops. """
+            for loop in loop_list:
+                loop.father = base
+                c_nodes, c_edges = build_subgraph(loop)
+                find_loops(c_nodes, c_edges, loop)
 
             """ Label all nodes the loop inside and build loop hierarchy. """
             if base is not None:
@@ -1021,42 +847,23 @@ class TCfg:
                 if n.inside_loop is None:
                     n.inside_loop = base
 
-            self.__loops.extend(loop_list)
-            return loop_list
-
-        considered_nodes = self.__nodes
-        considered_edges = set(self.__edges)
-
+        # Search
+        considered_nodes = self._nodes
+        considered_edges = set(self._edges)
         find_loops(considered_nodes, considered_edges)
 
-    def draw_graph(self, filename='tcfg.gv', fmt='svg') -> Digraph:
-        g = Digraph('TCFG', filename=filename, format=fmt)
-        for call_proc, cfg_nodes in self.__nodes_mapping.items():
-            for node in cfg_nodes:
-                if not node.outgoing_edge and not node.incoming_edge:
-                    # Dead block elimination.
-                    continue
-                r = node.inst_range
-                g.node(node.name, "{}\n{}\n({},{})".format(node.name, node.base_proc.procedure.name, r[0].hex_str(), r[1].hex_str()))
-        for edge in self.__edges:
-            kind = edge.kind
-            if kind == TCfgEdgeType.Textual:
-                g.edge(edge.src.name, edge.dst.name)
-            elif kind == TCfgEdgeType.BranchTaken:
-                g.edge(edge.src.name, edge.dst.name, color='green')
-            elif kind == TCfgEdgeType.BranchNoTaken:
-                g.edge(edge.src.name, edge.dst.name, color='red')
-            elif kind == TCfgEdgeType.ProcCall:
-                g.edge(edge.src.name, edge.dst.name, color='purple', label='call')
-            elif kind == TCfgEdgeType.ProcReturn:
-                g.edge(edge.src.name, edge.dst.name, color='purple', label='return')
-            elif kind == TCfgEdgeType.PltBelieved:
-                g.edge(edge.src.name, edge.dst.name, color='purple', label='return', style='dashed')
-        return g
+    def formatted_loop_hrchy(self, fmt='grid'):
+        header = ['Name', 'Head', 'Tail', 'Include Node', 'Father', 'Children']
+        data = [loop.formatted_loop_info() for loop in self._loops]
+        return tabulate(data, headers=header, tablefmt=fmt)
 
-
-
-
-
-
-'''
+    def add_loop_bound(self, file_name: str):
+        bound_mapping = dict()
+        with open(file_name, "r", encoding='utf-8') as fp:
+            for line in fp.readlines():
+                lb_src, lb_dst, bound = line.split()
+                bound_mapping[(lb_src, lb_dst)] = int(bound)
+        for lp in self._loops:
+            if (b := bound_mapping.get(((e := lp.back_edge).src.name, e.dst.name), None)) is None:
+                raise KeyError(f"Cannot find loop bound for loop {lp.name}:{lp.all_nodes} with back edge {lp.back_edge.src.name}-{lp.back_edge.dst.name}.")
+            lp.bound = b
