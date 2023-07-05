@@ -1,0 +1,1080 @@
+digraph TCFG {
+	"main-n0" [label="n0
+400f40-0x400f70"]
+	"main-n1" [label="n1
+400f70-0x400f78"]
+	"main-n2" [label="n2
+400f78-0x400f7c"]
+	"main-n3" [label="n3
+400f7c-0x400f8c"]
+	"main-n4" [label="n4
+400f8c-0x400fa0"]
+	"main-n5" [label="n5
+400fa0-0x400fa8"]
+	"main-n6" [label="n6
+400fa8-0x400fb8"]
+	"main-n7" [label="n7
+400fb8-0x400fc4"]
+	"main-n8" [label="n8
+400fc4-0x400fd4"]
+	"main-n9" [label="n9
+400fd4-0x400fe4"]
+	"main-n10" [label="n10
+400fe4-0x400ff4"]
+	"main-n11" [label="n11
+400ff4-0x401000"]
+	"main-n12" [label="n12
+401000-0x401008"]
+	"main-n13" [label="n13
+401008-0x401014"]
+	"main-n14" [label="n14
+401014-0x40101c"]
+	"main-n15" [label="n15
+40101c-0x401028"]
+	"main-n16" [label="n16
+401028-0x401030"]
+	"main-n17" [label="n17
+401030-0x401040"]
+	"main-n18" [label="n18
+401040-0x40104c"]
+	"main-n19" [label="n19
+40104c-0x401064"]
+	"main-n20" [label="n20
+401064-0x401068"]
+	"main-n21" [label="n21
+401068-0x401078"]
+	"main-n22" [label="n22
+401078-0x40107c"]
+	"main-n23" [label="n23
+40107c-0x401088"]
+	"main-n24" [label="n24
+401088-0x401094"]
+	"main-n25" [label="n25
+401094-0x4010a4"]
+	"main-n26" [label="n26
+4010a4-0x4010b0"]
+	"main-n27" [label="n27
+4010b0-0x4010c0"]
+	"main-n28" [label="n28
+4010c0-0x4010d0"]
+	"main-n29" [label="n29
+4010d0-0x4010e4"]
+	"main-n30" [label="n30
+4010e4-0x4010f0"]
+	"main-n31" [label="n31
+4010f0-0x4010f8"]
+	"main-n32" [label="n32
+4010f8-0x401104"]
+	"main-n33" [label="n33
+401104-0x401110"]
+	"main-n34" [label="n34
+401110-0x40111c"]
+	"main-n35" [label="n35
+40111c-0x401120"]
+	"main-n36" [label="n36
+401120-0x401130"]
+	"main-n37" [label="n37
+401130-0x401134"]
+	"main-n38" [label="n38
+401134-0x401138"]
+	"main-n39" [label="n39
+401138-0x40116c"]
+	"main-n40" [label="n40
+40116c-0x401174"]
+	"main-n41" [label="n41
+401174-0x401180"]
+	"main-n42" [label="n42
+401180-0x401184"]
+	"main-n43" [label="n43
+401184-0x401198"]
+	"main-n44" [label="n44
+401198-0x4011a8"]
+	"main-n45" [label="n45
+4011a8-0x4011ac"]
+	"main-n46" [label="n46
+4011ac-0x4011bc"]
+	"main-n47" [label="n47
+4011bc-0x4011cc"]
+	"main-n48" [label="n48
+4011cc-0x4011d8"]
+	"main-n49" [label="n49
+4011d8-0x4011e0"]
+	"main-n50" [label="n50
+4011e0-0x4011ec"]
+	"main-n51" [label="n51
+4011ec-0x4011f4"]
+	"main-n52" [label="n52
+4011f4-0x4011f8"]
+	"main-n53" [label="n53
+4011f8-0x40120c"]
+	"main-n54" [label="n54
+40120c-0x401224"]
+	"main-n55" [label="n55
+401224-0x40122c"]
+	"main-n56" [label="n56
+40122c-0x401250"]
+	"main|400f6c#omp_get_num_procs@plt-n0" [label="n58
+omp_get_num_procs@plt
+400e70-0x400e80" fillcolor=turquoise]
+	"main|400f74#time@plt-n0" [label="n59
+time@plt
+400de0-0x400df0" fillcolor=turquoise]
+	"main|400f78#srand@plt-n0" [label="n60
+srand@plt
+400ec0-0x400ed0" fillcolor=turquoise]
+	"main|400f88#read_CLI-n0" [label="n61
+read_CLI
+402290-0x402530" fillcolor=turquoise]
+	"main|400f9c#omp_set_num_threads@plt-n0" [label="n62
+omp_set_num_threads@plt
+400db0-0x400dc0" fillcolor=turquoise]
+	"main|400fa4#logo-n0" [label="n63
+logo
+401ec0-0x401fc4" fillcolor=turquoise]
+	"main|400fb4#center_print-n0" [label="n64
+center_print
+401fc4-0x402050" fillcolor=turquoise]
+	"main|400fc0#border_print-n0" [label="n65
+border_print
+402050-0x402060" fillcolor=turquoise]
+	"main|400fd0#printf@plt-n0" [label="n66
+printf@plt
+400ed0-0x400ee0" fillcolor=turquoise]
+	"main|400fe0#printf@plt-n0" [label="n67
+printf@plt
+400ed0-0x400ee0" fillcolor=turquoise]
+	"main|400ff0#printf@plt-n0" [label="n68
+printf@plt
+400ed0-0x400ee0" fillcolor=turquoise]
+	"main|400ffc#printf@plt-n0" [label="n69
+printf@plt
+400ed0-0x400ee0" fillcolor=turquoise]
+	"main|401004#fancy_int-n0" [label="n70
+fancy_int
+402060-0x402144" fillcolor=turquoise]
+	"main|401010#printf@plt-n0" [label="n71
+printf@plt
+400ed0-0x400ee0" fillcolor=turquoise]
+	"main|401018#fancy_int-n0" [label="n72
+fancy_int
+402060-0x402144" fillcolor=turquoise]
+	"main|401024#printf@plt-n0" [label="n73
+printf@plt
+400ed0-0x400ee0" fillcolor=turquoise]
+	"main|40102c#fancy_int-n0" [label="n74
+fancy_int
+402060-0x402144" fillcolor=turquoise]
+	"main|40103c#printf@plt-n0" [label="n75
+printf@plt
+400ed0-0x400ee0" fillcolor=turquoise]
+	"main|401048#printf@plt-n0" [label="n76
+printf@plt
+400ed0-0x400ee0" fillcolor=turquoise]
+	"main|401060#fancy_int-n0" [label="n77
+fancy_int
+402060-0x402144" fillcolor=turquoise]
+	"main|401064#border_print-n0" [label="n78
+border_print
+402050-0x402060" fillcolor=turquoise]
+	"main|401074#center_print-n0" [label="n79
+center_print
+401fc4-0x402050" fillcolor=turquoise]
+	"main|401078#border_print-n0" [label="n80
+border_print
+402050-0x402060" fillcolor=turquoise]
+	"main|401084#puts@plt-n0" [label="n81
+puts@plt
+400e60-0x400e70" fillcolor=turquoise]
+	"main|401090#gpmatrix-n0" [label="n82
+401df0-0x401e18"]
+	"main|401090#gpmatrix-n1" [label="n83
+401e18-0x401e28"]
+	"main|401090#gpmatrix-n2" [label="n84
+401e28-0x401e2c"]
+	"main|401090#gpmatrix-n3" [label="n85
+401e2c-0x401e38"]
+	"main|401090#gpmatrix-n4" [label="n86
+401e38-0x401e48"]
+	"main|401090#gpmatrix-n5" [label="n87
+401e48-0x401e50"]
+	"main|401090#gpmatrix-n6" [label="n88
+401e50-0x401e5c"]
+	"main|401090#gpmatrix-n7" [label="n89
+401e5c-0x401e6c"]
+	"main|4010a0#generate_grids-n0" [label="n91
+4019e4-0x4019ec"]
+	"main|4010a0#generate_grids-n1" [label="n92
+4019ec-0x4019f4"]
+	"main|4010a0#generate_grids-n2" [label="n93
+4019f4-0x401a30"]
+	"main|4010a0#generate_grids-n3" [label="n94
+401a30-0x401a38"]
+	"main|4010a0#generate_grids-n4" [label="n95
+401a38-0x401a3c"]
+	"main|4010a0#generate_grids-n5" [label="n96
+401a3c-0x401a50"]
+	"main|4010a0#generate_grids-n6" [label="n97
+401a50-0x401a68"]
+	"main|4010a0#generate_grids-n7" [label="n98
+401a68-0x401a80"]
+	"main|4010a0#generate_grids-n8" [label="n99
+401a80-0x401a98"]
+	"main|4010a0#generate_grids-n9" [label="n100
+401a98-0x401ab0"]
+	"main|4010a0#generate_grids-n10" [label="n101
+401ab0-0x401ad0"]
+	"main|4010a0#generate_grids-n11" [label="n102
+401ad0-0x401adc"]
+	"main|4010a0#generate_grids-n12" [label="n103
+401adc-0x401af0"]
+	"main|4010a0#generate_grids-n13" [label="n104
+401af0-0x401af4"]
+	"main|4010ac#puts@plt-n0" [label="n105
+puts@plt
+400e60-0x400e70" fillcolor=turquoise]
+	"main|4010bc#sort_nuclide_grids-n0" [label="n106
+401bc4-0x401bcc"]
+	"main|4010bc#sort_nuclide_grids-n1" [label="n107
+401bcc-0x401bf8"]
+	"main|4010bc#sort_nuclide_grids-n2" [label="n108
+401bf8-0x401c0c"]
+	"main|4010bc#sort_nuclide_grids-n3" [label="n109
+401c0c-0x401c14"]
+	"main|4010bc#sort_nuclide_grids-n4" [label="n110
+401c14-0x401c24"]
+	"main|4010bc#sort_nuclide_grids-n5" [label="n111
+401c24-0x401c28"]
+	"main|4010cc#generate_energy_grid-n0" [label="n113
+401c30-0x401c6c"]
+	"main|4010cc#generate_energy_grid-n1" [label="n114
+401c6c-0x401c74"]
+	"main|4010cc#generate_energy_grid-n2" [label="n115
+401c74-0x401c88"]
+	"main|4010cc#generate_energy_grid-n3" [label="n116
+401c88-0x401c94"]
+	"main|4010cc#generate_energy_grid-n4" [label="n117
+401c94-0x401ca8"]
+	"main|4010cc#generate_energy_grid-n5" [label="n118
+401ca8-0x401cc0"]
+	"main|4010cc#generate_energy_grid-n6" [label="n119
+401cc0-0x401ccc"]
+	"main|4010cc#generate_energy_grid-n7" [label="n120
+401ccc-0x401cd4"]
+	"main|4010cc#generate_energy_grid-n8" [label="n121
+401cd4-0x401ce8"]
+	"main|4010cc#generate_energy_grid-n9" [label="n122
+401ce8-0x401cf8"]
+	"main|4010cc#generate_energy_grid-n10" [label="n123
+401cf8-0x401d00"]
+	"main|4010cc#generate_energy_grid-n11" [label="n124
+401d00-0x401d0c"]
+	"main|4010cc#generate_energy_grid-n12" [label="n125
+401d0c-0x401d20"]
+	"main|4010cc#generate_energy_grid-n13" [label="n126
+401d20-0x401d30"]
+	"main|4010cc#generate_energy_grid-n14" [label="n127
+401d30-0x401d50"]
+	"main|4010cc#generate_energy_grid-n15" [label="n128
+401d50-0x401d58"]
+	"main|4010cc#generate_energy_grid-n16" [label="n129
+401d58-0x401d78"]
+	"main|4010e0#set_grid_ptrs-n0" [label="n131
+401d80-0x401dac"]
+	"main|4010e0#set_grid_ptrs-n1" [label="n132
+401dac-0x401dd0"]
+	"main|4010e0#set_grid_ptrs-n2" [label="n133
+401dd0-0x401de4"]
+	"main|4010e0#set_grid_ptrs-n3" [label="n134
+401de4-0x401df0"]
+	"main|4010ec#puts@plt-n0" [label="n135
+puts@plt
+400e60-0x400e70" fillcolor=turquoise]
+	"main|4010f4#load_num_nucs-n0" [label="n136
+4025b0-0x4025c8"]
+	"main|4010f4#load_num_nucs-n1" [label="n137
+4025c8-0x402614"]
+	"main|401100#load_mats-n0" [label="n138
+402614-0x402644"]
+	"main|401100#load_mats-n1" [label="n139
+402644-0x402648"]
+	"main|401100#load_mats-n2" [label="n140
+402648-0x402654"]
+	"main|401100#load_mats-n3" [label="n141
+402654-0x402664"]
+	"main|401100#load_mats-n4" [label="n142
+402664-0x40267c"]
+	"main|401100#load_mats-n5" [label="n143
+40267c-0x40268c"]
+	"main|401100#load_mats-n6" [label="n144
+40268c-0x402708"]
+	"main|401100#load_mats-n7" [label="n145
+402708-0x402720"]
+	"main|401100#load_mats-n8" [label="n146
+402720-0x402874"]
+	"main|401100#load_mats-n9" [label="n147
+402874-0x40287c"]
+	"main|401100#load_mats-n10" [label="n148
+40287c-0x402890"]
+	"main|401100#load_mats-n11" [label="n149
+402890-0x4028a4"]
+	"main|401100#load_mats-n12" [label="n150
+4028a4-0x4028b8"]
+	"main|401100#load_mats-n13" [label="n151
+4028b8-0x4028cc"]
+	"main|401100#load_mats-n14" [label="n152
+4028cc-0x4028e0"]
+	"main|401100#load_mats-n15" [label="n153
+4028e0-0x4028f4"]
+	"main|401100#load_mats-n16" [label="n154
+4028f4-0x402908"]
+	"main|401100#load_mats-n17" [label="n155
+402908-0x40291c"]
+	"main|401100#load_mats-n18" [label="n156
+40291c-0x402930"]
+	"main|401100#load_mats-n19" [label="n157
+402930-0x402944"]
+	"main|401100#load_mats-n20" [label="n158
+402944-0x402958"]
+	"main|401100#load_mats-n21" [label="n159
+402958-0x402978"]
+	"main|401100#load_mats-n22" [label="n160
+402978-0x402980"]
+	"main|401100#load_mats-n23" [label="n161
+402980-0x402984"]
+	"main|40110c#load_concs-n0" [label="n162
+402984-0x4029a8"]
+	"main|40110c#load_concs-n1" [label="n163
+4029a8-0x4029b0"]
+	"main|40110c#load_concs-n2" [label="n164
+4029b0-0x4029bc"]
+	"main|40110c#load_concs-n3" [label="n165
+4029bc-0x4029cc"]
+	"main|40110c#load_concs-n4" [label="n166
+4029cc-0x4029e0"]
+	"main|40110c#load_concs-n5" [label="n167
+4029e0-0x4029f0"]
+	"main|40110c#load_concs-n6" [label="n168
+4029f0-0x4029f4"]
+	"main|40110c#load_concs-n7" [label="n169
+4029f4-0x402a14"]
+	"main|40110c#load_concs-n8" [label="n170
+402a14-0x402a20"]
+	"main|40110c#load_concs-n9" [label="n171
+402a20-0x402a38"]
+	"main|401118#putchar@plt-n0" [label="n173
+putchar@plt
+400ef0-0x400f00" fillcolor=turquoise]
+	"main|40111c#border_print-n0" [label="n174
+border_print
+402050-0x402060" fillcolor=turquoise]
+	"main|40112c#center_print-n0" [label="n175
+center_print
+401fc4-0x402050" fillcolor=turquoise]
+	"main|401130#border_print-n0" [label="n176
+border_print
+402050-0x402060" fillcolor=turquoise]
+	"main|401134#omp_get_wtime@plt-n0" [label="n177
+omp_get_wtime@plt
+400d90-0x400da0" fillcolor=turquoise]
+	"main|401168#GOMP_parallel@plt-n0" [label="n178
+GOMP_parallel@plt
+400ee0-0x400ef0" fillcolor=turquoise]
+	"main|401170#putchar@plt-n0" [label="n179
+putchar@plt
+400ef0-0x400f00" fillcolor=turquoise]
+	"main|40117c#puts@plt-n0" [label="n180
+puts@plt
+400e60-0x400e70" fillcolor=turquoise]
+	"main|401180#omp_get_wtime@plt-n0" [label="n181
+omp_get_wtime@plt
+400d90-0x400da0" fillcolor=turquoise]
+	"main|401194#border_print-n0" [label="n182
+border_print
+402050-0x402060" fillcolor=turquoise]
+	"main|4011a4#center_print-n0" [label="n183
+center_print
+401fc4-0x402050" fillcolor=turquoise]
+	"main|4011a8#border_print-n0" [label="n184
+border_print
+402050-0x402060" fillcolor=turquoise]
+	"main|4011b8#printf@plt-n0" [label="n185
+printf@plt
+400ed0-0x400ee0" fillcolor=turquoise]
+	"main|4011c8#printf@plt-n0" [label="n186
+printf@plt
+400ed0-0x400ee0" fillcolor=turquoise]
+	"main|4011d4#printf@plt-n0" [label="n187
+printf@plt
+400ed0-0x400ee0" fillcolor=turquoise]
+	"main|4011dc#fancy_int-n0" [label="n188
+fancy_int
+402060-0x402144" fillcolor=turquoise]
+	"main|4011e8#printf@plt-n0" [label="n189
+printf@plt
+400ed0-0x400ee0" fillcolor=turquoise]
+	"main|4011f0#fancy_int-n0" [label="n190
+fancy_int
+402060-0x402144" fillcolor=turquoise]
+	"main|4011f4#border_print-n0" [label="n191
+border_print
+402050-0x402060" fillcolor=turquoise]
+	"main|401208#fopen@plt-n0" [label="n192
+fopen@plt
+400dd0-0x400de0" fillcolor=turquoise]
+	"main|401220#fprintf@plt-n0" [label="n193
+fprintf@plt
+400f00-0x400f10" fillcolor=turquoise]
+	"main|401228#fclose@plt-n0" [label="n194
+fclose@plt
+400dc0-0x400dd0" fillcolor=turquoise]
+	"main|401090#gpmatrix|401e14#malloc@plt-n0" [label="n245
+malloc@plt
+400df0-0x400e00" fillcolor=turquoise]
+	"main|401090#gpmatrix|401e24#malloc@plt-n0" [label="n246
+malloc@plt
+400df0-0x400e00" fillcolor=turquoise]
+	"main|4010a0#generate_grids|401a38#rand@plt-n0" [label="n247
+rand@plt
+400e20-0x400e30" fillcolor=turquoise]
+	"main|4010a0#generate_grids|401a4c#rand@plt-n0" [label="n248
+rand@plt
+400e20-0x400e30" fillcolor=turquoise]
+	"main|4010a0#generate_grids|401a64#rand@plt-n0" [label="n249
+rand@plt
+400e20-0x400e30" fillcolor=turquoise]
+	"main|4010a0#generate_grids|401a7c#rand@plt-n0" [label="n250
+rand@plt
+400e20-0x400e30" fillcolor=turquoise]
+	"main|4010a0#generate_grids|401a94#rand@plt-n0" [label="n251
+rand@plt
+400e20-0x400e30" fillcolor=turquoise]
+	"main|4010a0#generate_grids|401aac#rand@plt-n0" [label="n252
+rand@plt
+400e20-0x400e30" fillcolor=turquoise]
+	"main|4010bc#sort_nuclide_grids|401c08#qsort@plt-n0" [label="n253
+qsort@plt
+400d80-0x400d90" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401c68#puts@plt-n0" [label="n254
+puts@plt
+400e60-0x400e70" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401c70#malloc@plt-n0" [label="n255
+malloc@plt
+400df0-0x400e00" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401c84#puts@plt-n0" [label="n256
+puts@plt
+400e60-0x400e70" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n0" [label="n257
+401df0-0x401e18"]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n1" [label="n258
+401e18-0x401e28"]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n2" [label="n259
+401e28-0x401e2c"]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n3" [label="n260
+401e2c-0x401e38"]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n4" [label="n261
+401e38-0x401e48"]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n5" [label="n262
+401e48-0x401e50"]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n6" [label="n263
+401e50-0x401e5c"]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n7" [label="n264
+401e5c-0x401e6c"]
+	"main|4010cc#generate_energy_grid|401ca4#memcpy@plt-n0" [label="n266
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401cbc#qsort@plt-n0" [label="n267
+qsort@plt
+400d80-0x400d90" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401cc8#puts@plt-n0" [label="n268
+puts@plt
+400e60-0x400e70" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401cfc#gpmatrix_free-n0" [label="n269
+401e70-0x401e88"]
+	"main|4010cc#generate_energy_grid|401cfc#gpmatrix_free-n1" [label="n270
+401e88-0x401e98"]
+	"main|4010cc#generate_energy_grid|401cfc#gpmatrix_free-n2" [label="n271
+401e98-0x401ea0"]
+	"main|4010cc#generate_energy_grid|401d08#malloc@plt-n0" [label="n272
+malloc@plt
+400df0-0x400e00" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401d54#gpmatrix_free-n0" [label="n273
+401e70-0x401e88"]
+	"main|4010cc#generate_energy_grid|401d54#gpmatrix_free-n1" [label="n274
+401e88-0x401e98"]
+	"main|4010cc#generate_energy_grid|401d54#gpmatrix_free-n2" [label="n275
+401e98-0x401ea0"]
+	"main|4010e0#set_grid_ptrs|401da8#puts@plt-n0" [label="n276
+puts@plt
+400e60-0x400e70" fillcolor=turquoise]
+	"main|4010e0#set_grid_ptrs|401dcc#GOMP_parallel@plt-n0" [label="n277
+GOMP_parallel@plt
+400ee0-0x400ef0" fillcolor=turquoise]
+	"main|4010e0#set_grid_ptrs|401de0#putchar@plt-n0" [label="n278
+putchar@plt
+400ef0-0x400f00" fillcolor=turquoise]
+	"main|4010f4#load_num_nucs|4025c4#malloc@plt-n0" [label="n279
+malloc@plt
+400df0-0x400e00" fillcolor=turquoise]
+	"main|401100#load_mats|402640#malloc@plt-n0" [label="n280
+malloc@plt
+400df0-0x400e00" fillcolor=turquoise]
+	"main|401100#load_mats|402650#malloc@plt-n0" [label="n281
+malloc@plt
+400df0-0x400e00" fillcolor=turquoise]
+	"main|401100#load_mats|402678#memcpy@plt-n0" [label="n282
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|402688#memset@plt-n0" [label="n283
+memset@plt
+400e00-0x400e10" fillcolor=turquoise]
+	"main|401100#load_mats|402878#memcpy@plt-n0" [label="n284
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|40288c#memcpy@plt-n0" [label="n285
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|4028a0#memcpy@plt-n0" [label="n286
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|4028b4#memcpy@plt-n0" [label="n287
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|4028c8#memcpy@plt-n0" [label="n288
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|4028dc#memcpy@plt-n0" [label="n289
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|4028f0#memcpy@plt-n0" [label="n290
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|402904#memcpy@plt-n0" [label="n291
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|402918#memcpy@plt-n0" [label="n292
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|40292c#memcpy@plt-n0" [label="n293
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|402940#memcpy@plt-n0" [label="n294
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|402954#memcpy@plt-n0" [label="n295
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|401100#load_mats|40297c#memcpy@plt-n0" [label="n296
+memcpy@plt
+400cf0-0x400d00" fillcolor=turquoise]
+	"main|40110c#load_concs|4029a4#malloc@plt-n0" [label="n297
+malloc@plt
+400df0-0x400e00" fillcolor=turquoise]
+	"main|40110c#load_concs|4029b8#malloc@plt-n0" [label="n298
+malloc@plt
+400df0-0x400e00" fillcolor=turquoise]
+	"main|40110c#load_concs|4029f0#rand@plt-n0" [label="n299
+rand@plt
+400e20-0x400e30" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix|401e14#malloc@plt-n0" [label="n330
+malloc@plt
+400df0-0x400e00" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix|401e24#malloc@plt-n0" [label="n331
+malloc@plt
+400df0-0x400e00" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401cfc#gpmatrix_free|401e84#free@plt-n0" [label="n332
+free@plt
+400ea0-0x400eb0" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401cfc#gpmatrix_free|401e94#free@plt-n0" [label="n333
+free@plt
+400ea0-0x400eb0" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401d54#gpmatrix_free|401e84#free@plt-n0" [label="n334
+free@plt
+400ea0-0x400eb0" fillcolor=turquoise]
+	"main|4010cc#generate_energy_grid|401d54#gpmatrix_free|401e94#free@plt-n0" [label="n335
+free@plt
+400ea0-0x400eb0" fillcolor=turquoise]
+	"main|401090#gpmatrix-n2" -> "main|401090#gpmatrix-n7" [label="branch taken" color=green]
+	"main|401090#gpmatrix-n2" -> "main|401090#gpmatrix-n3" [label="branch not taken" color=red]
+	"main|401090#gpmatrix-n3" -> "main|401090#gpmatrix-n4"
+	"main|401090#gpmatrix-n4" -> "main|401090#gpmatrix-n6" [label="branch taken" color=green]
+	"main|401090#gpmatrix-n4" -> "main|401090#gpmatrix-n5" [label="branch not taken" color=red]
+	"main|401090#gpmatrix-n5" -> "main|401090#gpmatrix-n6"
+	"main|401090#gpmatrix-n6" -> "main|401090#gpmatrix-n4" [label="branch taken" color=green]
+	"main|401090#gpmatrix-n6" -> "main|401090#gpmatrix-n7" [label="branch not taken" color=red]
+	"main|4010a0#generate_grids-n0" -> "main|4010a0#generate_grids-n13" [label="branch taken" color=green]
+	"main|4010a0#generate_grids-n0" -> "main|4010a0#generate_grids-n1" [label="branch not taken" color=red]
+	"main|4010a0#generate_grids-n1" -> "main|4010a0#generate_grids-n13" [label="branch taken" color=green]
+	"main|4010a0#generate_grids-n1" -> "main|4010a0#generate_grids-n2" [label="branch not taken" color=red]
+	"main|4010a0#generate_grids-n2" -> "main|4010a0#generate_grids-n3"
+	"main|4010a0#generate_grids-n3" -> "main|4010a0#generate_grids-n4"
+	"main|4010a0#generate_grids-n10" -> "main|4010a0#generate_grids-n4" [label="branch taken" color=green]
+	"main|4010a0#generate_grids-n10" -> "main|4010a0#generate_grids-n11" [label="branch not taken" color=red]
+	"main|4010a0#generate_grids-n11" -> "main|4010a0#generate_grids-n3" [label="branch taken" color=green]
+	"main|4010a0#generate_grids-n11" -> "main|4010a0#generate_grids-n12" [label="branch not taken" color=red]
+	"main|4010bc#sort_nuclide_grids-n0" -> "main|4010bc#sort_nuclide_grids-n5" [label="branch taken" color=green]
+	"main|4010bc#sort_nuclide_grids-n0" -> "main|4010bc#sort_nuclide_grids-n1" [label="branch not taken" color=red]
+	"main|4010bc#sort_nuclide_grids-n1" -> "main|4010bc#sort_nuclide_grids-n2"
+	"main|4010bc#sort_nuclide_grids-n3" -> "main|4010bc#sort_nuclide_grids-n2" [label="branch taken" color=green]
+	"main|4010bc#sort_nuclide_grids-n3" -> "main|4010bc#sort_nuclide_grids-n4" [label="branch not taken" color=red]
+	"main|4010cc#generate_energy_grid-n7" -> "main|4010cc#generate_energy_grid-n15" [label="branch taken" color=green]
+	"main|4010cc#generate_energy_grid-n7" -> "main|4010cc#generate_energy_grid-n8" [label="branch not taken" color=red]
+	"main|4010cc#generate_energy_grid-n8" -> "main|4010cc#generate_energy_grid-n9"
+	"main|4010cc#generate_energy_grid-n9" -> "main|4010cc#generate_energy_grid-n9" [label="branch taken" color=green]
+	"main|4010cc#generate_energy_grid-n9" -> "main|4010cc#generate_energy_grid-n10" [label="branch not taken" color=red]
+	"main|4010cc#generate_energy_grid-n12" -> "main|4010cc#generate_energy_grid-n13"
+	"main|4010cc#generate_energy_grid-n13" -> "main|4010cc#generate_energy_grid-n13" [label="branch taken" color=green]
+	"main|4010cc#generate_energy_grid-n13" -> "main|4010cc#generate_energy_grid-n14" [label="branch not taken" color=red]
+	"main|401100#load_mats-n1" -> "main|401100#load_mats-n2"
+	"main|401100#load_mats-n3" -> "main|401100#load_mats-n2" [label="branch taken" color=green]
+	"main|401100#load_mats-n3" -> "main|401100#load_mats-n4" [label="branch not taken" color=red]
+	"main|401100#load_mats-n6" -> "main|401100#load_mats-n7"
+	"main|401100#load_mats-n7" -> "main|401100#load_mats-n7" [label="branch taken" color=green]
+	"main|401100#load_mats-n7" -> "main|401100#load_mats-n8" [label="branch not taken" color=red]
+	"main|401100#load_mats-n8" -> "main|401100#load_mats-n22" [label="branch taken" color=green]
+	"main|401100#load_mats-n8" -> "main|401100#load_mats-n9" [label="branch not taken" color=red]
+	"main|401100#load_mats-n23" -> "main|401100#load_mats-n10" [label="branch taken" color=green]
+	"main|40110c#load_concs-n1" -> "main|40110c#load_concs-n2"
+	"main|40110c#load_concs-n3" -> "main|40110c#load_concs-n2" [label="branch taken" color=green]
+	"main|40110c#load_concs-n3" -> "main|40110c#load_concs-n4" [label="branch not taken" color=red]
+	"main|40110c#load_concs-n4" -> "main|40110c#load_concs-n5"
+	"main|40110c#load_concs-n5" -> "main|40110c#load_concs-n8" [label="branch taken" color=green]
+	"main|40110c#load_concs-n5" -> "main|40110c#load_concs-n6" [label="branch not taken" color=red]
+	"main|40110c#load_concs-n7" -> "main|40110c#load_concs-n6" [label="branch taken" color=green]
+	"main|40110c#load_concs-n7" -> "main|40110c#load_concs-n8" [label="branch not taken" color=red]
+	"main|40110c#load_concs-n8" -> "main|40110c#load_concs-n5" [label="branch taken" color=green]
+	"main|40110c#load_concs-n8" -> "main|40110c#load_concs-n9" [label="branch not taken" color=red]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n2" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix-n7" [label="branch taken" color=green]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n2" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix-n3" [label="branch not taken" color=red]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n3" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix-n4"
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n4" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix-n6" [label="branch taken" color=green]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n4" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix-n5" [label="branch not taken" color=red]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n5" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix-n6"
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n6" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix-n4" [label="branch taken" color=green]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n6" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix-n7" [label="branch not taken" color=red]
+	"main-n0" -> "main|400f6c#omp_get_num_procs@plt-n0" [label="call
+main|400f6c#omp_get_num_procs@plt" color=blue]
+	"main|400f6c#omp_get_num_procs@plt-n0" -> "main-n1" [label="@plt return
+main" color=blue]
+	"main-n1" -> "main|400f74#time@plt-n0" [label="call
+main|400f74#time@plt" color=blue]
+	"main|400f74#time@plt-n0" -> "main-n2" [label="@plt return
+main" color=blue]
+	"main-n2" -> "main|400f78#srand@plt-n0" [label="call
+main|400f78#srand@plt" color=blue]
+	"main|400f78#srand@plt-n0" -> "main-n3" [label="@plt return
+main" color=blue]
+	"main-n3" -> "main|400f88#read_CLI-n0" [label="call
+main|400f88#read_CLI" color=blue]
+	"main|400f88#read_CLI-n0" -> "main-n4" [label="@plt return
+main" color=blue]
+	"main-n4" -> "main|400f9c#omp_set_num_threads@plt-n0" [label="call
+main|400f9c#omp_set_num_threads@plt" color=blue]
+	"main|400f9c#omp_set_num_threads@plt-n0" -> "main-n5" [label="@plt return
+main" color=blue]
+	"main-n5" -> "main|400fa4#logo-n0" [label="call
+main|400fa4#logo" color=blue]
+	"main|400fa4#logo-n0" -> "main-n6" [label="@plt return
+main" color=blue]
+	"main-n6" -> "main|400fb4#center_print-n0" [label="call
+main|400fb4#center_print" color=blue]
+	"main|400fb4#center_print-n0" -> "main-n7" [label="@plt return
+main" color=blue]
+	"main-n7" -> "main|400fc0#border_print-n0" [label="call
+main|400fc0#border_print" color=blue]
+	"main|400fc0#border_print-n0" -> "main-n8" [label="@plt return
+main" color=blue]
+	"main-n8" -> "main|400fd0#printf@plt-n0" [label="call
+main|400fd0#printf@plt" color=blue]
+	"main|400fd0#printf@plt-n0" -> "main-n9" [label="@plt return
+main" color=blue]
+	"main-n9" -> "main|400fe0#printf@plt-n0" [label="call
+main|400fe0#printf@plt" color=blue]
+	"main|400fe0#printf@plt-n0" -> "main-n10" [label="@plt return
+main" color=blue]
+	"main-n10" -> "main|400ff0#printf@plt-n0" [label="call
+main|400ff0#printf@plt" color=blue]
+	"main|400ff0#printf@plt-n0" -> "main-n11" [label="@plt return
+main" color=blue]
+	"main-n11" -> "main|400ffc#printf@plt-n0" [label="call
+main|400ffc#printf@plt" color=blue]
+	"main|400ffc#printf@plt-n0" -> "main-n12" [label="@plt return
+main" color=blue]
+	"main-n12" -> "main|401004#fancy_int-n0" [label="call
+main|401004#fancy_int" color=blue]
+	"main|401004#fancy_int-n0" -> "main-n13" [label="@plt return
+main" color=blue]
+	"main-n13" -> "main|401010#printf@plt-n0" [label="call
+main|401010#printf@plt" color=blue]
+	"main|401010#printf@plt-n0" -> "main-n14" [label="@plt return
+main" color=blue]
+	"main-n14" -> "main|401018#fancy_int-n0" [label="call
+main|401018#fancy_int" color=blue]
+	"main|401018#fancy_int-n0" -> "main-n15" [label="@plt return
+main" color=blue]
+	"main-n15" -> "main|401024#printf@plt-n0" [label="call
+main|401024#printf@plt" color=blue]
+	"main|401024#printf@plt-n0" -> "main-n16" [label="@plt return
+main" color=blue]
+	"main-n16" -> "main|40102c#fancy_int-n0" [label="call
+main|40102c#fancy_int" color=blue]
+	"main|40102c#fancy_int-n0" -> "main-n17" [label="@plt return
+main" color=blue]
+	"main-n17" -> "main|40103c#printf@plt-n0" [label="call
+main|40103c#printf@plt" color=blue]
+	"main|40103c#printf@plt-n0" -> "main-n18" [label="@plt return
+main" color=blue]
+	"main-n18" -> "main|401048#printf@plt-n0" [label="call
+main|401048#printf@plt" color=blue]
+	"main|401048#printf@plt-n0" -> "main-n19" [label="@plt return
+main" color=blue]
+	"main-n19" -> "main|401060#fancy_int-n0" [label="call
+main|401060#fancy_int" color=blue]
+	"main|401060#fancy_int-n0" -> "main-n20" [label="@plt return
+main" color=blue]
+	"main-n20" -> "main|401064#border_print-n0" [label="call
+main|401064#border_print" color=blue]
+	"main|401064#border_print-n0" -> "main-n21" [label="@plt return
+main" color=blue]
+	"main-n21" -> "main|401074#center_print-n0" [label="call
+main|401074#center_print" color=blue]
+	"main|401074#center_print-n0" -> "main-n22" [label="@plt return
+main" color=blue]
+	"main-n22" -> "main|401078#border_print-n0" [label="call
+main|401078#border_print" color=blue]
+	"main|401078#border_print-n0" -> "main-n23" [label="@plt return
+main" color=blue]
+	"main-n23" -> "main|401084#puts@plt-n0" [label="call
+main|401084#puts@plt" color=blue]
+	"main|401084#puts@plt-n0" -> "main-n24" [label="@plt return
+main" color=blue]
+	"main-n24" -> "main|401090#gpmatrix-n0" [label="call
+main|401090#gpmatrix" color=blue]
+	"main|401090#gpmatrix-n7" -> "main-n25" [label="return
+main" color=blue]
+	"main-n25" -> "main|4010a0#generate_grids-n0" [label="call
+main|4010a0#generate_grids" color=blue]
+	"main|4010a0#generate_grids-n12" -> "main-n26" [label="return
+main" color=blue]
+	"main|4010a0#generate_grids-n13" -> "main-n26" [label="return
+main" color=blue]
+	"main-n26" -> "main|4010ac#puts@plt-n0" [label="call
+main|4010ac#puts@plt" color=blue]
+	"main|4010ac#puts@plt-n0" -> "main-n27" [label="@plt return
+main" color=blue]
+	"main-n27" -> "main|4010bc#sort_nuclide_grids-n0" [label="call
+main|4010bc#sort_nuclide_grids" color=blue]
+	"main|4010bc#sort_nuclide_grids-n4" -> "main-n28" [label="return
+main" color=blue]
+	"main|4010bc#sort_nuclide_grids-n5" -> "main-n28" [label="return
+main" color=blue]
+	"main-n28" -> "main|4010cc#generate_energy_grid-n0" [label="call
+main|4010cc#generate_energy_grid" color=blue]
+	"main|4010cc#generate_energy_grid-n14" -> "main-n29" [label="return
+main" color=blue]
+	"main|4010cc#generate_energy_grid-n16" -> "main-n29" [label="return
+main" color=blue]
+	"main-n29" -> "main|4010e0#set_grid_ptrs-n0" [label="call
+main|4010e0#set_grid_ptrs" color=blue]
+	"main|4010e0#set_grid_ptrs-n3" -> "main-n30" [label="return
+main" color=blue]
+	"main-n30" -> "main|4010ec#puts@plt-n0" [label="call
+main|4010ec#puts@plt" color=blue]
+	"main|4010ec#puts@plt-n0" -> "main-n31" [label="@plt return
+main" color=blue]
+	"main-n31" -> "main|4010f4#load_num_nucs-n0" [label="call
+main|4010f4#load_num_nucs" color=blue]
+	"main|4010f4#load_num_nucs-n1" -> "main-n32" [label="return
+main" color=blue]
+	"main-n32" -> "main|401100#load_mats-n0" [label="call
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n21" -> "main-n33" [label="return
+main" color=blue]
+	"main-n33" -> "main|40110c#load_concs-n0" [label="call
+main|40110c#load_concs" color=blue]
+	"main|40110c#load_concs-n9" -> "main-n34" [label="return
+main" color=blue]
+	"main-n34" -> "main|401118#putchar@plt-n0" [label="call
+main|401118#putchar@plt" color=blue]
+	"main|401118#putchar@plt-n0" -> "main-n35" [label="@plt return
+main" color=blue]
+	"main-n35" -> "main|40111c#border_print-n0" [label="call
+main|40111c#border_print" color=blue]
+	"main|40111c#border_print-n0" -> "main-n36" [label="@plt return
+main" color=blue]
+	"main-n36" -> "main|40112c#center_print-n0" [label="call
+main|40112c#center_print" color=blue]
+	"main|40112c#center_print-n0" -> "main-n37" [label="@plt return
+main" color=blue]
+	"main-n37" -> "main|401130#border_print-n0" [label="call
+main|401130#border_print" color=blue]
+	"main|401130#border_print-n0" -> "main-n38" [label="@plt return
+main" color=blue]
+	"main-n38" -> "main|401134#omp_get_wtime@plt-n0" [label="call
+main|401134#omp_get_wtime@plt" color=blue]
+	"main|401134#omp_get_wtime@plt-n0" -> "main-n39" [label="@plt return
+main" color=blue]
+	"main-n39" -> "main|401168#GOMP_parallel@plt-n0" [label="call
+main|401168#GOMP_parallel@plt" color=blue]
+	"main|401168#GOMP_parallel@plt-n0" -> "main-n40" [label="@plt return
+main" color=blue]
+	"main-n40" -> "main|401170#putchar@plt-n0" [label="call
+main|401170#putchar@plt" color=blue]
+	"main|401170#putchar@plt-n0" -> "main-n41" [label="@plt return
+main" color=blue]
+	"main-n41" -> "main|40117c#puts@plt-n0" [label="call
+main|40117c#puts@plt" color=blue]
+	"main|40117c#puts@plt-n0" -> "main-n42" [label="@plt return
+main" color=blue]
+	"main-n42" -> "main|401180#omp_get_wtime@plt-n0" [label="call
+main|401180#omp_get_wtime@plt" color=blue]
+	"main|401180#omp_get_wtime@plt-n0" -> "main-n43" [label="@plt return
+main" color=blue]
+	"main-n43" -> "main|401194#border_print-n0" [label="call
+main|401194#border_print" color=blue]
+	"main|401194#border_print-n0" -> "main-n44" [label="@plt return
+main" color=blue]
+	"main-n44" -> "main|4011a4#center_print-n0" [label="call
+main|4011a4#center_print" color=blue]
+	"main|4011a4#center_print-n0" -> "main-n45" [label="@plt return
+main" color=blue]
+	"main-n45" -> "main|4011a8#border_print-n0" [label="call
+main|4011a8#border_print" color=blue]
+	"main|4011a8#border_print-n0" -> "main-n46" [label="@plt return
+main" color=blue]
+	"main-n46" -> "main|4011b8#printf@plt-n0" [label="call
+main|4011b8#printf@plt" color=blue]
+	"main|4011b8#printf@plt-n0" -> "main-n47" [label="@plt return
+main" color=blue]
+	"main-n47" -> "main|4011c8#printf@plt-n0" [label="call
+main|4011c8#printf@plt" color=blue]
+	"main|4011c8#printf@plt-n0" -> "main-n48" [label="@plt return
+main" color=blue]
+	"main-n48" -> "main|4011d4#printf@plt-n0" [label="call
+main|4011d4#printf@plt" color=blue]
+	"main|4011d4#printf@plt-n0" -> "main-n49" [label="@plt return
+main" color=blue]
+	"main-n49" -> "main|4011dc#fancy_int-n0" [label="call
+main|4011dc#fancy_int" color=blue]
+	"main|4011dc#fancy_int-n0" -> "main-n50" [label="@plt return
+main" color=blue]
+	"main-n50" -> "main|4011e8#printf@plt-n0" [label="call
+main|4011e8#printf@plt" color=blue]
+	"main|4011e8#printf@plt-n0" -> "main-n51" [label="@plt return
+main" color=blue]
+	"main-n51" -> "main|4011f0#fancy_int-n0" [label="call
+main|4011f0#fancy_int" color=blue]
+	"main|4011f0#fancy_int-n0" -> "main-n52" [label="@plt return
+main" color=blue]
+	"main-n52" -> "main|4011f4#border_print-n0" [label="call
+main|4011f4#border_print" color=blue]
+	"main|4011f4#border_print-n0" -> "main-n53" [label="@plt return
+main" color=blue]
+	"main-n53" -> "main|401208#fopen@plt-n0" [label="call
+main|401208#fopen@plt" color=blue]
+	"main|401208#fopen@plt-n0" -> "main-n54" [label="@plt return
+main" color=blue]
+	"main-n54" -> "main|401220#fprintf@plt-n0" [label="call
+main|401220#fprintf@plt" color=blue]
+	"main|401220#fprintf@plt-n0" -> "main-n55" [label="@plt return
+main" color=blue]
+	"main-n55" -> "main|401228#fclose@plt-n0" [label="call
+main|401228#fclose@plt" color=blue]
+	"main|401228#fclose@plt-n0" -> "main-n56" [label="@plt return
+main" color=blue]
+	"main|401090#gpmatrix-n0" -> "main|401090#gpmatrix|401e14#malloc@plt-n0" [label="call
+main|401090#gpmatrix|401e14#malloc@plt" color=blue]
+	"main|401090#gpmatrix|401e14#malloc@plt-n0" -> "main|401090#gpmatrix-n1" [label="@plt return
+main|401090#gpmatrix" color=blue]
+	"main|401090#gpmatrix-n1" -> "main|401090#gpmatrix|401e24#malloc@plt-n0" [label="call
+main|401090#gpmatrix|401e24#malloc@plt" color=blue]
+	"main|401090#gpmatrix|401e24#malloc@plt-n0" -> "main|401090#gpmatrix-n2" [label="@plt return
+main|401090#gpmatrix" color=blue]
+	"main|4010a0#generate_grids-n4" -> "main|4010a0#generate_grids|401a38#rand@plt-n0" [label="call
+main|4010a0#generate_grids|401a38#rand@plt" color=blue]
+	"main|4010a0#generate_grids|401a38#rand@plt-n0" -> "main|4010a0#generate_grids-n5" [label="@plt return
+main|4010a0#generate_grids" color=blue]
+	"main|4010a0#generate_grids-n5" -> "main|4010a0#generate_grids|401a4c#rand@plt-n0" [label="call
+main|4010a0#generate_grids|401a4c#rand@plt" color=blue]
+	"main|4010a0#generate_grids|401a4c#rand@plt-n0" -> "main|4010a0#generate_grids-n6" [label="@plt return
+main|4010a0#generate_grids" color=blue]
+	"main|4010a0#generate_grids-n6" -> "main|4010a0#generate_grids|401a64#rand@plt-n0" [label="call
+main|4010a0#generate_grids|401a64#rand@plt" color=blue]
+	"main|4010a0#generate_grids|401a64#rand@plt-n0" -> "main|4010a0#generate_grids-n7" [label="@plt return
+main|4010a0#generate_grids" color=blue]
+	"main|4010a0#generate_grids-n7" -> "main|4010a0#generate_grids|401a7c#rand@plt-n0" [label="call
+main|4010a0#generate_grids|401a7c#rand@plt" color=blue]
+	"main|4010a0#generate_grids|401a7c#rand@plt-n0" -> "main|4010a0#generate_grids-n8" [label="@plt return
+main|4010a0#generate_grids" color=blue]
+	"main|4010a0#generate_grids-n8" -> "main|4010a0#generate_grids|401a94#rand@plt-n0" [label="call
+main|4010a0#generate_grids|401a94#rand@plt" color=blue]
+	"main|4010a0#generate_grids|401a94#rand@plt-n0" -> "main|4010a0#generate_grids-n9" [label="@plt return
+main|4010a0#generate_grids" color=blue]
+	"main|4010a0#generate_grids-n9" -> "main|4010a0#generate_grids|401aac#rand@plt-n0" [label="call
+main|4010a0#generate_grids|401aac#rand@plt" color=blue]
+	"main|4010a0#generate_grids|401aac#rand@plt-n0" -> "main|4010a0#generate_grids-n10" [label="@plt return
+main|4010a0#generate_grids" color=blue]
+	"main|4010bc#sort_nuclide_grids-n2" -> "main|4010bc#sort_nuclide_grids|401c08#qsort@plt-n0" [label="call
+main|4010bc#sort_nuclide_grids|401c08#qsort@plt" color=blue]
+	"main|4010bc#sort_nuclide_grids|401c08#qsort@plt-n0" -> "main|4010bc#sort_nuclide_grids-n3" [label="@plt return
+main|4010bc#sort_nuclide_grids" color=blue]
+	"main|4010cc#generate_energy_grid-n0" -> "main|4010cc#generate_energy_grid|401c68#puts@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401c68#puts@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401c68#puts@plt-n0" -> "main|4010cc#generate_energy_grid-n1" [label="@plt return
+main|4010cc#generate_energy_grid" color=blue]
+	"main|4010cc#generate_energy_grid-n1" -> "main|4010cc#generate_energy_grid|401c70#malloc@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401c70#malloc@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401c70#malloc@plt-n0" -> "main|4010cc#generate_energy_grid-n2" [label="@plt return
+main|4010cc#generate_energy_grid" color=blue]
+	"main|4010cc#generate_energy_grid-n2" -> "main|4010cc#generate_energy_grid|401c84#puts@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401c84#puts@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401c84#puts@plt-n0" -> "main|4010cc#generate_energy_grid-n3" [label="@plt return
+main|4010cc#generate_energy_grid" color=blue]
+	"main|4010cc#generate_energy_grid-n3" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix-n0" [label="call
+main|4010cc#generate_energy_grid|401c90#gpmatrix" color=blue]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n7" -> "main|4010cc#generate_energy_grid-n4" [label="return
+main|4010cc#generate_energy_grid" color=blue]
+	"main|4010cc#generate_energy_grid-n4" -> "main|4010cc#generate_energy_grid|401ca4#memcpy@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401ca4#memcpy@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401ca4#memcpy@plt-n0" -> "main|4010cc#generate_energy_grid-n5" [label="@plt return
+main|4010cc#generate_energy_grid" color=blue]
+	"main|4010cc#generate_energy_grid-n5" -> "main|4010cc#generate_energy_grid|401cbc#qsort@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401cbc#qsort@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401cbc#qsort@plt-n0" -> "main|4010cc#generate_energy_grid-n6" [label="@plt return
+main|4010cc#generate_energy_grid" color=blue]
+	"main|4010cc#generate_energy_grid-n6" -> "main|4010cc#generate_energy_grid|401cc8#puts@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401cc8#puts@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401cc8#puts@plt-n0" -> "main|4010cc#generate_energy_grid-n7" [label="@plt return
+main|4010cc#generate_energy_grid" color=blue]
+	"main|4010cc#generate_energy_grid-n10" -> "main|4010cc#generate_energy_grid|401cfc#gpmatrix_free-n0" [label="call
+main|4010cc#generate_energy_grid|401cfc#gpmatrix_free" color=blue]
+	"main|4010cc#generate_energy_grid|401cfc#gpmatrix_free-n2" -> "main|4010cc#generate_energy_grid-n11" [label="return
+main|4010cc#generate_energy_grid" color=blue]
+	"main|4010cc#generate_energy_grid-n11" -> "main|4010cc#generate_energy_grid|401d08#malloc@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401d08#malloc@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401d08#malloc@plt-n0" -> "main|4010cc#generate_energy_grid-n12" [label="@plt return
+main|4010cc#generate_energy_grid" color=blue]
+	"main|4010cc#generate_energy_grid-n15" -> "main|4010cc#generate_energy_grid|401d54#gpmatrix_free-n0" [label="call
+main|4010cc#generate_energy_grid|401d54#gpmatrix_free" color=blue]
+	"main|4010cc#generate_energy_grid|401d54#gpmatrix_free-n2" -> "main|4010cc#generate_energy_grid-n16" [label="return
+main|4010cc#generate_energy_grid" color=blue]
+	"main|4010e0#set_grid_ptrs-n0" -> "main|4010e0#set_grid_ptrs|401da8#puts@plt-n0" [label="call
+main|4010e0#set_grid_ptrs|401da8#puts@plt" color=blue]
+	"main|4010e0#set_grid_ptrs|401da8#puts@plt-n0" -> "main|4010e0#set_grid_ptrs-n1" [label="@plt return
+main|4010e0#set_grid_ptrs" color=blue]
+	"main|4010e0#set_grid_ptrs-n1" -> "main|4010e0#set_grid_ptrs|401dcc#GOMP_parallel@plt-n0" [label="call
+main|4010e0#set_grid_ptrs|401dcc#GOMP_parallel@plt" color=blue]
+	"main|4010e0#set_grid_ptrs|401dcc#GOMP_parallel@plt-n0" -> "main|4010e0#set_grid_ptrs-n2" [label="@plt return
+main|4010e0#set_grid_ptrs" color=blue]
+	"main|4010e0#set_grid_ptrs-n2" -> "main|4010e0#set_grid_ptrs|401de0#putchar@plt-n0" [label="call
+main|4010e0#set_grid_ptrs|401de0#putchar@plt" color=blue]
+	"main|4010e0#set_grid_ptrs|401de0#putchar@plt-n0" -> "main|4010e0#set_grid_ptrs-n3" [label="@plt return
+main|4010e0#set_grid_ptrs" color=blue]
+	"main|4010f4#load_num_nucs-n0" -> "main|4010f4#load_num_nucs|4025c4#malloc@plt-n0" [label="call
+main|4010f4#load_num_nucs|4025c4#malloc@plt" color=blue]
+	"main|4010f4#load_num_nucs|4025c4#malloc@plt-n0" -> "main|4010f4#load_num_nucs-n1" [label="@plt return
+main|4010f4#load_num_nucs" color=blue]
+	"main|401100#load_mats-n0" -> "main|401100#load_mats|402640#malloc@plt-n0" [label="call
+main|401100#load_mats|402640#malloc@plt" color=blue]
+	"main|401100#load_mats|402640#malloc@plt-n0" -> "main|401100#load_mats-n1" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n2" -> "main|401100#load_mats|402650#malloc@plt-n0" [label="call
+main|401100#load_mats|402650#malloc@plt" color=blue]
+	"main|401100#load_mats|402650#malloc@plt-n0" -> "main|401100#load_mats-n3" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n4" -> "main|401100#load_mats|402678#memcpy@plt-n0" [label="call
+main|401100#load_mats|402678#memcpy@plt" color=blue]
+	"main|401100#load_mats|402678#memcpy@plt-n0" -> "main|401100#load_mats-n5" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n5" -> "main|401100#load_mats|402688#memset@plt-n0" [label="call
+main|401100#load_mats|402688#memset@plt" color=blue]
+	"main|401100#load_mats|402688#memset@plt-n0" -> "main|401100#load_mats-n6" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n9" -> "main|401100#load_mats|402878#memcpy@plt-n0" [label="call
+main|401100#load_mats|402878#memcpy@plt" color=blue]
+	"main|401100#load_mats|402878#memcpy@plt-n0" -> "main|401100#load_mats-n10" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n10" -> "main|401100#load_mats|40288c#memcpy@plt-n0" [label="call
+main|401100#load_mats|40288c#memcpy@plt" color=blue]
+	"main|401100#load_mats|40288c#memcpy@plt-n0" -> "main|401100#load_mats-n11" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n11" -> "main|401100#load_mats|4028a0#memcpy@plt-n0" [label="call
+main|401100#load_mats|4028a0#memcpy@plt" color=blue]
+	"main|401100#load_mats|4028a0#memcpy@plt-n0" -> "main|401100#load_mats-n12" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n12" -> "main|401100#load_mats|4028b4#memcpy@plt-n0" [label="call
+main|401100#load_mats|4028b4#memcpy@plt" color=blue]
+	"main|401100#load_mats|4028b4#memcpy@plt-n0" -> "main|401100#load_mats-n13" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n13" -> "main|401100#load_mats|4028c8#memcpy@plt-n0" [label="call
+main|401100#load_mats|4028c8#memcpy@plt" color=blue]
+	"main|401100#load_mats|4028c8#memcpy@plt-n0" -> "main|401100#load_mats-n14" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n14" -> "main|401100#load_mats|4028dc#memcpy@plt-n0" [label="call
+main|401100#load_mats|4028dc#memcpy@plt" color=blue]
+	"main|401100#load_mats|4028dc#memcpy@plt-n0" -> "main|401100#load_mats-n15" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n15" -> "main|401100#load_mats|4028f0#memcpy@plt-n0" [label="call
+main|401100#load_mats|4028f0#memcpy@plt" color=blue]
+	"main|401100#load_mats|4028f0#memcpy@plt-n0" -> "main|401100#load_mats-n16" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n16" -> "main|401100#load_mats|402904#memcpy@plt-n0" [label="call
+main|401100#load_mats|402904#memcpy@plt" color=blue]
+	"main|401100#load_mats|402904#memcpy@plt-n0" -> "main|401100#load_mats-n17" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n17" -> "main|401100#load_mats|402918#memcpy@plt-n0" [label="call
+main|401100#load_mats|402918#memcpy@plt" color=blue]
+	"main|401100#load_mats|402918#memcpy@plt-n0" -> "main|401100#load_mats-n18" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n18" -> "main|401100#load_mats|40292c#memcpy@plt-n0" [label="call
+main|401100#load_mats|40292c#memcpy@plt" color=blue]
+	"main|401100#load_mats|40292c#memcpy@plt-n0" -> "main|401100#load_mats-n19" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n19" -> "main|401100#load_mats|402940#memcpy@plt-n0" [label="call
+main|401100#load_mats|402940#memcpy@plt" color=blue]
+	"main|401100#load_mats|402940#memcpy@plt-n0" -> "main|401100#load_mats-n20" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n20" -> "main|401100#load_mats|402954#memcpy@plt-n0" [label="call
+main|401100#load_mats|402954#memcpy@plt" color=blue]
+	"main|401100#load_mats|402954#memcpy@plt-n0" -> "main|401100#load_mats-n21" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|401100#load_mats-n22" -> "main|401100#load_mats|40297c#memcpy@plt-n0" [label="call
+main|401100#load_mats|40297c#memcpy@plt" color=blue]
+	"main|401100#load_mats|40297c#memcpy@plt-n0" -> "main|401100#load_mats-n23" [label="@plt return
+main|401100#load_mats" color=blue]
+	"main|40110c#load_concs-n0" -> "main|40110c#load_concs|4029a4#malloc@plt-n0" [label="call
+main|40110c#load_concs|4029a4#malloc@plt" color=blue]
+	"main|40110c#load_concs|4029a4#malloc@plt-n0" -> "main|40110c#load_concs-n1" [label="@plt return
+main|40110c#load_concs" color=blue]
+	"main|40110c#load_concs-n2" -> "main|40110c#load_concs|4029b8#malloc@plt-n0" [label="call
+main|40110c#load_concs|4029b8#malloc@plt" color=blue]
+	"main|40110c#load_concs|4029b8#malloc@plt-n0" -> "main|40110c#load_concs-n3" [label="@plt return
+main|40110c#load_concs" color=blue]
+	"main|40110c#load_concs-n6" -> "main|40110c#load_concs|4029f0#rand@plt-n0" [label="call
+main|40110c#load_concs|4029f0#rand@plt" color=blue]
+	"main|40110c#load_concs|4029f0#rand@plt-n0" -> "main|40110c#load_concs-n7" [label="@plt return
+main|40110c#load_concs" color=blue]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n0" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix|401e14#malloc@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401c90#gpmatrix|401e14#malloc@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix|401e14#malloc@plt-n0" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix-n1" [label="@plt return
+main|4010cc#generate_energy_grid|401c90#gpmatrix" color=blue]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix-n1" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix|401e24#malloc@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401c90#gpmatrix|401e24#malloc@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401c90#gpmatrix|401e24#malloc@plt-n0" -> "main|4010cc#generate_energy_grid|401c90#gpmatrix-n2" [label="@plt return
+main|4010cc#generate_energy_grid|401c90#gpmatrix" color=blue]
+	"main|4010cc#generate_energy_grid|401cfc#gpmatrix_free-n0" -> "main|4010cc#generate_energy_grid|401cfc#gpmatrix_free|401e84#free@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401cfc#gpmatrix_free|401e84#free@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401cfc#gpmatrix_free|401e84#free@plt-n0" -> "main|4010cc#generate_energy_grid|401cfc#gpmatrix_free-n1" [label="@plt return
+main|4010cc#generate_energy_grid|401cfc#gpmatrix_free" color=blue]
+	"main|4010cc#generate_energy_grid|401cfc#gpmatrix_free-n1" -> "main|4010cc#generate_energy_grid|401cfc#gpmatrix_free|401e94#free@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401cfc#gpmatrix_free|401e94#free@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401cfc#gpmatrix_free|401e94#free@plt-n0" -> "main|4010cc#generate_energy_grid|401cfc#gpmatrix_free-n2" [label="@plt return
+main|4010cc#generate_energy_grid|401cfc#gpmatrix_free" color=blue]
+	"main|4010cc#generate_energy_grid|401d54#gpmatrix_free-n0" -> "main|4010cc#generate_energy_grid|401d54#gpmatrix_free|401e84#free@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401d54#gpmatrix_free|401e84#free@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401d54#gpmatrix_free|401e84#free@plt-n0" -> "main|4010cc#generate_energy_grid|401d54#gpmatrix_free-n1" [label="@plt return
+main|4010cc#generate_energy_grid|401d54#gpmatrix_free" color=blue]
+	"main|4010cc#generate_energy_grid|401d54#gpmatrix_free-n1" -> "main|4010cc#generate_energy_grid|401d54#gpmatrix_free|401e94#free@plt-n0" [label="call
+main|4010cc#generate_energy_grid|401d54#gpmatrix_free|401e94#free@plt" color=blue]
+	"main|4010cc#generate_energy_grid|401d54#gpmatrix_free|401e94#free@plt-n0" -> "main|4010cc#generate_energy_grid|401d54#gpmatrix_free-n2" [label="@plt return
+main|4010cc#generate_energy_grid|401d54#gpmatrix_free" color=blue]
+}
